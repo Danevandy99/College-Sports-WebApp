@@ -229,5 +229,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-ClientApp/.angular/**/*
-appsettings.Development.json
+College-Sports-WebApp/ClientApp/.angular/**/*
+College-Sports-WebApp/appsettings.Development.json

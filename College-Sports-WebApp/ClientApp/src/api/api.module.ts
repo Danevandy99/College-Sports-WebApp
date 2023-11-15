@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { EspnApiService } from './services/espn-api.service';
 import { SportsDataApiService } from './services/sports-data-api.service';
 
 /**
@@ -14,6 +15,7 @@ import { SportsDataApiService } from './services/sports-data-api.service';
   exports: [],
   declarations: [],
   providers: [
+    EspnApiService,
     SportsDataApiService,
     ApiConfiguration
   ],

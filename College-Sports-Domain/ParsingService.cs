@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Globalization;
+using HtmlAgilityPack;
 
 namespace College_Sports_Domain;
 
@@ -19,10 +20,8 @@ public class ParsingService
             {
                 ScoreboardItem scoreboard = new ScoreboardItem
                 {
-                    Id = scoreboardNode.GetAttributeValue("id", ""),
                     ScoreCell = ParseScoreboardScoreCell(scoreboardNode),
                     EventInfo = ParseScoreboardEventInfo(scoreboardNode),
-                    TeamInfo = ParseTeamInformation(scoreboardNode),
                     Callouts = ParseScoreboardCallouts(scoreboardNode)
                 };
 
@@ -35,9 +34,14 @@ public class ParsingService
 
     static ScoreboardScoreCell ParseScoreboardScoreCell(HtmlNode node)
     {
+        var timeString = node.SelectSingleNode(".//div[contains(@class, 'ScoreCell__Time')]")?.InnerText?.Trim() ?? "";
+
+        // Convert the time (8:00 PM) to a datetime
+        DateTime.TryParseExact(timeString, "h:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out var time);
+
         ScoreboardScoreCell scoreCell = new ScoreboardScoreCell
         {
-            Time = node.SelectSingleNode(".//div[contains(@class, 'ScoreCell__Time')]")?.InnerText.Trim(),
+            Time = time,
             Competitors = node.SelectNodes(".//ul[contains(@class, 'ScoreboardScoreCell__Competitors')]/li")
                 ?.Select(ParseScoreboardScoreCellItem)
                 .ToList() ?? new List<ScoreboardScoreCellItem>()
@@ -48,12 +52,27 @@ public class ParsingService
 
     static ScoreboardScoreCellItem ParseScoreboardScoreCellItem(HtmlNode node)
     {
+        var recordString = node.SelectSingleNode(".//span[@class='ScoreboardScoreCell__Record']")?.InnerText;
+        var isAway = node.GetAttributeValue("class", "").Contains("away");
+        var record = new ScoreboardScoreCellItemRecord();
+
+        if (!string.IsNullOrEmpty(recordString))
+        {
+            var parts = recordString.Split('-');
+
+            int.TryParse(parts[0], out var wins);
+            record.Wins = wins;
+
+            int.TryParse(parts[1], out var losses);
+            record.Losses = losses;
+        }
+
         ScoreboardScoreCellItem competitor = new ScoreboardScoreCellItem
         {
-            IsAway = node.GetAttributeValue("class", "").Contains("away"),
-            TeamName = node.SelectSingleNode(".//div[contains(@class, 'ScoreCell__TeamName')]")?.InnerText.Trim(),
-            LogoUrl = node.SelectSingleNode(".//img[contains(@class, 'ScoreboardScoreCell__Logo')]")?.GetAttributeValue("src", ""),
-            Record = node.SelectSingleNode(".//div[contains(@class, 'ScoreboardScoreCell__Record')]")?.InnerText.Trim()
+            IsAway = isAway,
+            TeamName = node.SelectSingleNode(".//div[contains(@class, 'ScoreCell__TeamName')]")?.InnerText?.Trim() ?? "",
+            LogoUrl = node.SelectSingleNode(".//img[contains(@class, 'ScoreboardScoreCell__Logo')]")?.GetAttributeValue("src", "") ?? "",
+            Record = record,
         };
 
         return competitor;
@@ -63,48 +82,20 @@ public class ParsingService
     {
         ScoreboardEventInfo eventInfo = new ScoreboardEventInfo
         {
-            LocationHeadline = node.SelectSingleNode(".//div[contains(@class, 'LocationDetail__Item--headline')]")?.InnerText.Trim(),
-            LocationDetail = node.SelectSingleNode(".//div[contains(@class, 'LocationDetail__Item')]")?.InnerText.Trim()
+            LocationHeadline = node.SelectSingleNode(".//div[contains(@class, 'LocationDetail__Item--headline')]")?.InnerText?.Trim() ?? "",
+            LocationDetail = node.SelectSingleNode(".//div[@class='LocationDetail__Item']")?.InnerText?.Trim() ?? "",
         };
 
         return eventInfo;
-    }
-
-    static TeamInformation ParseTeamInformation(HtmlNode node)
-    {
-        TeamInformation teamInfo = new TeamInformation
-        {
-            Links = node.SelectNodes(".//section[contains(@class, 'TeamLinks')]/div[contains(@class, 'ContentList__Item')]")
-                ?.Select(ParseTeamLink)
-                .ToList() ?? new List<TeamLink>()
-        };
-
-        return teamInfo;
-    }
-
-    static TeamLink ParseTeamLink(HtmlNode node)
-    {
-        TeamLink link = new TeamLink
-        {
-            TeamName = node.SelectSingleNode(".//h2")?.InnerText.Trim(),
-            LogoUrl = node.SelectSingleNode(".//img[contains(@class, 'Image Logo Logo__xs')]")?.GetAttributeValue("src", ""),
-            Links = node.SelectNodes(".//span[contains(@class, 'TeamLinks__Link')]/a")
-                ?.Select(a => a.GetAttributeValue("href", ""))
-                .ToList() ?? new List<string>()
-        };
-
-        return link;
     }
 
     static ScoreboardCallouts ParseScoreboardCallouts(HtmlNode node)
     {
         ScoreboardCallouts callouts = new ScoreboardCallouts
         {
-            GamecastLink = node.SelectSingleNode(".//a[contains(@class, 'AnchorLink Button Button--sm Button--anchorLink Button--alt mb4 w-100 mr2')]")?.GetAttributeValue("href", "")
+            GamecastLink = node.SelectSingleNode(".//a[contains(@class, 'AnchorLink')]")?.GetAttributeValue("href", ""),
         };
 
         return callouts;
     }
-
-
 }

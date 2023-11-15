@@ -1,4 +1,5 @@
 using College_Sports_WebApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddHttpClient<SportsDataBasketballApiService>(client =>
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<CustomDbContext>();
 
 var app = builder.Build();
 
@@ -55,5 +58,13 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+
+using (var scope = app.Services.CreateAsyncScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CustomDbContext>();
+
+    await dbContext.Database.EnsureCreatedAsync();
+    await dbContext.Database.MigrateAsync();
+}
 
 app.Run();

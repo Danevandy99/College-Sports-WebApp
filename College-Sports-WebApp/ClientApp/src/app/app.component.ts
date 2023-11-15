@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
-import { SportsDataApiService } from 'src/api/services/sports-data-api.service';
+import { EspnApiService } from './../api/services/espn-api.service';
+import { Component, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
+import { ApiEspnApiScoreboardGet$Json$Params } from 'src/api/fn/espn-api/api-espn-api-scoreboard-get-json';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,13 @@ export class AppComponent {
 
   protected date = signal(new Date());
 
-  protected games = toSignal(toObservable(this.date).pipe(
+  protected scoreboardResult = toSignal(toObservable(this.date).pipe(
     switchMap(date => {
-      const data = { date: date.toISOString() };
+      const data: ApiEspnApiScoreboardGet$Json$Params = { filterDate: date.toDateString() };
 
-      return this.sportsDataApiService.apiSportsDataApiScoresByDateGet$Json(data)
+      return this.espnApiService.apiEspnApiScoreboardGet$Json(data)
     })
   ));
 
-  constructor(private sportsDataApiService: SportsDataApiService) { }
+  constructor(private espnApiService: EspnApiService) { }
 }

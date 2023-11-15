@@ -12,7 +12,7 @@ public class ParsingServiceTests
     [SetUp]
     public void Setup()
     {
-        scoreboardHTMLString = new FetchingService().FetchScoreboard().GetAwaiter().GetResult();
+        scoreboardHTMLString = File.ReadAllText("test-files/test-scoreboard.html");
     }
 
     [Test]

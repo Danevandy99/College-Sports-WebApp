@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College-Sports-WebApp", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College-Sports-Domain", "College-Sports-Domain\College-Sports-Domain.csproj", "{914A529E-E9F9-47E2-BA88-E1BE096CA25A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College-Sports-Tests", "College-Sports-Tests\College-Sports-Tests.csproj", "{7BCA741A-B2AD-46DA-87C8-83B0412F5AB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{914A529E-E9F9-47E2-BA88-E1BE096CA25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914A529E-E9F9-47E2-BA88-E1BE096CA25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{914A529E-E9F9-47E2-BA88-E1BE096CA25A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BCA741A-B2AD-46DA-87C8-83B0412F5AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BCA741A-B2AD-46DA-87C8-83B0412F5AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BCA741A-B2AD-46DA-87C8-83B0412F5AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BCA741A-B2AD-46DA-87C8-83B0412F5AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

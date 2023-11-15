@@ -29,7 +29,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.

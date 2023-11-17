@@ -15,7 +15,7 @@ namespace College_Sports_WebApp.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = _configuration.GetConnectionString("AZURE_POSTGRESQL_CONNECTIONSTRING");
+            var connectionString = _configuration.GetConnectionString("POSTGRESQLCONNSTR_AZURE_POSTGRESQL_CONNECTIONSTRING");
 
             if (string.IsNullOrEmpty(connectionString) && !_environment.IsDevelopment())
             {

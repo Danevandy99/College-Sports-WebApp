@@ -70,7 +70,7 @@ app.MapFallbackToFile("index.html");
 
 using (var scope = app.Services.CreateAsyncScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<SqliteDbContext>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<BaseDbContext>();
 
     await dbContext.Database.MigrateAsync();
 }

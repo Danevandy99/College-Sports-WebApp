@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "create-dev-db-migration": "ASPNETCORE_ENVIRONMENT=Development dotnet ef migrations add $1 --context SqliteDbContext --output-dir Migrations/Sqlite/ --project ../",
-    "create-prod-db-migration": "ASPNETCORE_ENVIRONMENT=Development dotnet ef migrations add $1 --context PostgresDbContext --output-dir Migrations/Postgres/ --project ../"
+    "create-prod-db-migration": "ASPNETCORE_ENVIRONMENT=Development dotnet ef migrations add $1 --context MySQLDbContext --output-dir Migrations/MySQL/ --project ../"
   },
   "private": true,
   "dependencies": {

@@ -40,7 +40,7 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    builder.Services.AddDbContext<BaseDbContext, PostgresDbContext>();
+    builder.Services.AddDbContext<BaseDbContext, MySQLDbContext>();
 }
 
 

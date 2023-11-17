@@ -10,7 +10,9 @@
     "build": "ng build",
     "build:ssr": "ng run College_Sports_WebApp:server:dev",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "create-dev-db-migration": "ASPNETCORE_ENVIRONMENT=Development dotnet ef migrations add $1 --context SqliteDbContext --output-dir Migrations/Sqlite/ --project ../",
+    "create-prod-db-migration": "ASPNETCORE_ENVIRONMENT=Development dotnet ef migrations add $1 --context PostgresDbContext --output-dir Migrations/Postgres/ --project ../"
   },
   "private": true,
   "dependencies": {

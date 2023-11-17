@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace College_Sports_WebApp.Migrations
+namespace College_Sports_WebApp.Migrations.Postgres
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +16,9 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardCallouts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    GamecastLink = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GamecastLink = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,10 +29,10 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardEventInfo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LocationHeadline = table.Column<string>(type: "TEXT", nullable: false),
-                    LocationDetail = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    LocationHeadline = table.Column<string>(type: "text", nullable: false),
+                    LocationDetail = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,10 +43,10 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardResults",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FetchDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    FilterDate = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FetchDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FilterDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,9 +57,9 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardScoreCell",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Time = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,10 +70,10 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardScoreCellItemRecord",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Wins = table.Column<int>(type: "INTEGER", nullable: false),
-                    Losses = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Wins = table.Column<int>(type: "integer", nullable: false),
+                    Losses = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,12 +84,12 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ScoreCellId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EventInfoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CalloutsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ScoreboardResultId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ScoreCellId = table.Column<int>(type: "integer", nullable: false),
+                    EventInfoId = table.Column<int>(type: "integer", nullable: false),
+                    CalloutsId = table.Column<int>(type: "integer", nullable: false),
+                    ScoreboardResultId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,25 +123,25 @@ namespace College_Sports_WebApp.Migrations
                 name: "ScoreboardScoreCellItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IsAway = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TeamName = table.Column<string>(type: "TEXT", nullable: false),
-                    LogoUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    RecordId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ScoreboardScoreCellId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsAway = table.Column<bool>(type: "boolean", nullable: false),
+                    TeamName = table.Column<string>(type: "text", nullable: false),
+                    LogoUrl = table.Column<string>(type: "text", nullable: false),
+                    RecordId = table.Column<int>(type: "integer", nullable: false),
+                    ScoreboardScoreCellId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ScoreboardScoreCellItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ScoreboardScoreCellItem_ScoreboardScoreCellItemRecord_RecordId",
+                        name: "FK_ScoreboardScoreCellItem_ScoreboardScoreCellItemRecord_Recor~",
                         column: x => x.RecordId,
                         principalTable: "ScoreboardScoreCellItemRecord",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ScoreboardScoreCellItem_ScoreboardScoreCell_ScoreboardScoreCellId",
+                        name: "FK_ScoreboardScoreCellItem_ScoreboardScoreCell_ScoreboardScore~",
                         column: x => x.ScoreboardScoreCellId,
                         principalTable: "ScoreboardScoreCell",
                         principalColumn: "Id");

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using College_Sports_WebApp.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,9 @@ namespace College_Sports_WebApp.Controllers
     [Route("api/[controller]")]
     public class ESPNApiController : ControllerBase
     {
-        private readonly CustomDbContext _context;
+        private readonly BaseDbContext _context;
 
-        public ESPNApiController(CustomDbContext context)
+        public ESPNApiController(BaseDbContext context)
         {
             _context = context;
         }

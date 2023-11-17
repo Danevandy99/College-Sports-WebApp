@@ -1,3 +1,4 @@
+using College_Sports_WebApp.Database;
 using College_Sports_WebApp.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +29,15 @@ builder.Services.AddHttpClient<SportsDataBasketballApiService>(client =>
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<CustomDbContext>();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<BaseDbContext, SqliteDbContext>();
+}
+else
+{
+    builder.Services.AddDbContext<BaseDbContext, PostgresDbContext>();
+}
+
 
 var app = builder.Build();
 
@@ -61,7 +70,7 @@ app.MapFallbackToFile("index.html");
 
 using (var scope = app.Services.CreateAsyncScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<CustomDbContext>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<SqliteDbContext>();
 
     await dbContext.Database.MigrateAsync();
 }

@@ -1,15 +1,15 @@
+using College_Sports_WebApp.Database;
 using Microsoft.EntityFrameworkCore;
 
-public class CustomDbContext : DbContext
+public class SqliteDbContext : BaseDbContext
 {
-    public DbSet<ScoreboardResult> ScoreboardResults { get; set; }
-
     public string DbPath { get; }
 
-    public CustomDbContext()
+    public SqliteDbContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
+        
         DbPath = Path.Join(path, "college-sports.db");
     }
 

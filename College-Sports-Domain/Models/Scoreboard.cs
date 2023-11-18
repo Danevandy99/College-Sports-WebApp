@@ -1,4 +1,4 @@
-public class ScoreboardResult
+public class PartialScoreboardResult
 {
     public int Id { get; set; }
     public DateTime FetchDateTime { get; set; }

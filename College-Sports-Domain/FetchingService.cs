@@ -3,7 +3,7 @@ using PuppeteerSharp;
 
 public class FetchingService
 {
-    public static async Task<ScoreboardResult> FetchScoreboard(DateOnly? dateOnly = null)
+    public static async Task<PartialScoreboardResult> FetchScoreboard(DateOnly? dateOnly = null)
     {
         dateOnly ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
@@ -23,7 +23,7 @@ public class FetchingService
 
         var scoreboardItems = ParsingService.ParseHtmlToScoreboardItems(htmlString);
 
-        return new ScoreboardResult()
+        return new PartialScoreboardResult()
         {
             FetchDateTime = DateTime.UtcNow,
             FilterDate = dateOnly.Value,

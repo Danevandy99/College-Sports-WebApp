@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using College_Sports_WebApp.Database;
+using College_Sports_WebApp.Database.Models;
+using College_Sports_WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +15,12 @@ namespace College_Sports_WebApp.Controllers
     public class ESPNApiController : ControllerBase
     {
         private readonly BaseDbContext _context;
+        private readonly ESPNApiService _espnApiService;
 
-        public ESPNApiController(BaseDbContext context)
+        public ESPNApiController(BaseDbContext context, ESPNApiService espnApiService)
         {
             _context = context;
+            _espnApiService = espnApiService;
         }
 
         [HttpGet("scoreboard")]
@@ -25,11 +29,10 @@ namespace College_Sports_WebApp.Controllers
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
             var storedScoreboardResult = await _context.ScoreboardResults
-                .Include(x => x.ScoreboardItems.Where(x => x.ScoreCell.Competitors.Any()))
-                    .ThenInclude(x => x.ScoreCell)
-                        .ThenInclude(x => x.Competitors)
-                            .ThenInclude(x => x.Record)
-                .FirstOrDefaultAsync(x => x.FilterDate == filterDate);
+                .Include(x => x.events)
+                    .ThenInclude(x => x.competitions)
+                        .ThenInclude(x => x.competitors)
+                .FirstOrDefaultAsync(x => DateOnly.FromDateTime(x.eventsDate.date) == filterDate);
 
             if (storedScoreboardResult is not null)
             {
@@ -41,7 +44,12 @@ namespace College_Sports_WebApp.Controllers
             {
                 Console.WriteLine("Fetching new scoreboard result");
 
-                var newScoreboardResult = await FetchingService.FetchScoreboard(filterDate);
+                var newScoreboardResult = await _espnApiService.FetchScoreboard(filterDate);
+
+                if (newScoreboardResult is null)
+                {
+                    return NotFound("Unable to fetch scoreboard result");
+                }
 
                 _context.ScoreboardResults.Add(newScoreboardResult);
                 await _context.SaveChangesAsync();

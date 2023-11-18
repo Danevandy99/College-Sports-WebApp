@@ -14,6 +14,7 @@ builder.Configuration
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<SportsDataBasketballApiService>();
+builder.Services.AddScoped<ESPNApiService>();
 
 var sportsDataApiKey = builder.Configuration["SportsDataApiKey"];
 
@@ -31,6 +32,16 @@ builder.Services.AddHttpClient<SportsDataBasketballApiService>(client =>
         };
     })
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
+builder.Services.AddHttpClient<ESPNApiService>(client => 
+    {
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11");
+        client.DefaultRequestHeaders.Add("ContentType", "application/x-www-form-urlencoded");
+        client.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip,deflate,sdch");
+        client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-GB,en-US;q=0.8,en;q=0.6");
+        client.DefaultRequestHeaders.AcceptCharset.ParseAdd("ISO-8859-1,utf-8;q=0.7,*;q=0.3");
+    });
 
 builder.Services.AddSwaggerGen();
 

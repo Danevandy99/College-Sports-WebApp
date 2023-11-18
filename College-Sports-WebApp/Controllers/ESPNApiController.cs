@@ -32,7 +32,7 @@ namespace College_Sports_WebApp.Controllers
                 .Include(x => x.events)
                     .ThenInclude(x => x.competitions)
                         .ThenInclude(x => x.competitors)
-                .FirstOrDefaultAsync(x => DateOnly.FromDateTime(x.eventsDate.date) == filterDate);
+                .FirstOrDefaultAsync(x => x.eventsDate.date.Date == filterDate.Value.ToDateTime(TimeOnly.MinValue));
 
             if (storedScoreboardResult is not null)
             {

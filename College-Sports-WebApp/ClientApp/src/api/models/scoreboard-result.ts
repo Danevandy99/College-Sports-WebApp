@@ -1,9 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
-import { ScoreboardItem } from '../models/scoreboard-item';
+import { Event } from '../models/event';
+import { EventsDate } from '../models/events-date';
+import { League } from '../models/league';
+import { Video } from '../models/video';
 export interface ScoreboardResult {
-  fetchDateTime?: string;
-  filterDate?: string;
+  events?: Array<Event> | null;
+  eventsDate?: EventsDate;
+  groups?: Array<string> | null;
   id?: number;
-  scoreboardItems?: Array<ScoreboardItem> | null;
+  leagues?: Array<League> | null;
+  videos?: Array<Video> | null;
 }

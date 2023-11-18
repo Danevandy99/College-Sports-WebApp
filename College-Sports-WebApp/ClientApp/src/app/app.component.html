@@ -1,20 +1,20 @@
 <div class="flex flex-col gap-y-4 p-4 bg-gray-50 h-screen overflow-y-auto">
-  @for (game of scoreboardResult()?.scoreboardItems; track game.id) {
+  @for (game of games(); track game.id) {
   <div class="game-card bg-white rounded-lg shadow-sm p-6">
-    <p class="mb-3 text-gray-600 text-sm">{{ game.scoreCell?.time | date:'shortTime' }}</p>
+    <p class="mb-3 text-gray-600 text-sm">{{ game.date | date:'shortTime' }}</p>
     <div class="flex flex-col gap-y-2">
-      @for (team of game.scoreCell?.competitors; track team.id) {
+      @for (competitor of getCompetitors(game); track competitor.id) {
       <div class="flex flex-row gap-x-4 items-center">
         <img
           class="w-12 h-12 bg-gray-100 rounded-lg p-2"
           src="{{
-            team.logoUrl ||
+            competitor.team?.logo ||
               'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
           }}"
-          alt="{{ team.teamName }}"
+          alt="{{ competitor.team?.name }}"
         />
 
-        <h1 class="font-semibold text-lg">{{ team.teamName }}</h1>
+        <h1 class="font-semibold text-lg">{{ competitor.team?.name  }}</h1>
       </div>
       }
     </div>

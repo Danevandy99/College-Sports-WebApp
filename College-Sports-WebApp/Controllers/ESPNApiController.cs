@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using College_Sports_Domain.Models;
 using College_Sports_WebApp.Database;
 using College_Sports_WebApp.Database.Models;
 using College_Sports_WebApp.Services;
@@ -28,17 +30,21 @@ namespace College_Sports_WebApp.Controllers
         {
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
-            var storedScoreboardResult = await _context.ScoreboardResults
-                .Include(x => x.events)
-                    .ThenInclude(x => x.competitions)
-                        .ThenInclude(x => x.competitors)
-                .FirstOrDefaultAsync(x => x.eventsDate.date.Date == filterDate.Value.ToDateTime(TimeOnly.MinValue));
+            var storedScoreboardFetch = await _context.ScoreboardFetches
+                .FirstOrDefaultAsync(x => x.FilterDate == filterDate.Value);
 
-            if (storedScoreboardResult is not null)
+            if (storedScoreboardFetch is not null)
             {
                 Console.WriteLine("Found stored scoreboard result");
 
-                return storedScoreboardResult;
+                var result = JsonSerializer.Deserialize<ScoreboardResult>(storedScoreboardFetch.JsonResponse);
+
+                if (result is null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Unable to deserialize stored scoreboard result");
+                }
+
+                return Ok(result);
             }
             else
             {
@@ -51,9 +57,14 @@ namespace College_Sports_WebApp.Controllers
                     return NotFound("Unable to fetch scoreboard result");
                 }
 
-                // Don't try to save it for now
-                //_context.ScoreboardResults.Add(newScoreboardResult);
-                //await _context.SaveChangesAsync();
+                var newScoreboardFetch = new ScoreboardFetch
+                {
+                    FilterDate = filterDate.Value,
+                    JsonResponse = JsonSerializer.Serialize(newScoreboardResult),
+                };
+
+                _context.ScoreboardFetches.Add(newScoreboardFetch);
+                await _context.SaveChangesAsync();
 
                 return newScoreboardResult;
             }

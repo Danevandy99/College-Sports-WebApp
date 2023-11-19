@@ -33,7 +33,7 @@ builder.Services.AddHttpClient<SportsDataBasketballApiService>(client =>
     })
     .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
-builder.Services.AddHttpClient<ESPNApiService>(client => 
+builder.Services.AddHttpClient<ESPNApiService>(client =>
     {
         client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11");
         // client.DefaultRequestHeaders.Add("ContentType", "application/x-www-form-urlencoded");
@@ -42,6 +42,14 @@ builder.Services.AddHttpClient<ESPNApiService>(client =>
         client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-GB,en-US;q=0.8,en;q=0.6");
         client.DefaultRequestHeaders.AcceptCharset.ParseAdd("utf-8;q=0.7,*;q=0.3");
     });
+
+builder.Services.AddSingleton<ESPNFetchingService>();
+builder.Services.AddHostedService(provider => provider.GetRequiredService<ESPNFetchingService>());
+
+builder.Services.Configure<HostOptions>(hostOptions =>
+      {
+          hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+      });
 
 builder.Services.AddSwaggerGen();
 

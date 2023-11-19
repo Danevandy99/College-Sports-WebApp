@@ -22,6 +22,9 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("FetchedDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateOnly>("FilterDate")
                         .HasColumnType("TEXT");
 

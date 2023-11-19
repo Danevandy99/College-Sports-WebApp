@@ -31,6 +31,8 @@ namespace College_Sports_WebApp.Controllers
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
             var storedScoreboardFetch = await _context.ScoreboardFetches
+                .AsNoTracking()
+                .OrderByDescending(x => x.FetchedDateTime)
                 .FirstOrDefaultAsync(x => x.FilterDate == filterDate.Value);
 
             if (storedScoreboardFetch is not null)

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ApiModule } from '../api/api.module';
+import { TimeOrTimeLeftSectionComponent } from './components/time-or-time-left-section/time-or-time-left-section.component';
 
 const routes: Routes = [
 
@@ -14,6 +15,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    TimeOrTimeLeftSectionComponent
   ],
   imports: [
     BrowserModule,

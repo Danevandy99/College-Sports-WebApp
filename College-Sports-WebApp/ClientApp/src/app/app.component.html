@@ -1,20 +1,60 @@
-<div class="flex flex-col gap-y-4 p-4 bg-gray-50 h-screen overflow-y-auto">
+<div class="flex flex-col gap-y-2 lg:gap-y-4 p-2 lg:p-4 bg-gray-50">
   @for (game of games(); track game.id) {
-  <div class="game-card bg-white rounded-lg shadow-sm p-6">
-    <p class="mb-3 text-gray-600 text-sm">{{ game.date | date:'shortTime' }}</p>
-    <div class="flex flex-col gap-y-2">
+  <div class="game-card bg-white rounded-lg shadow-sm p-2">
+    <app-time-or-time-left-section
+      [game]="game"
+    ></app-time-or-time-left-section>
+    <div class="grid grid-cols-2 grid-rows-2 gap-y-1">
       @for (competitor of getCompetitors(game); track competitor.id) {
-      <div class="flex flex-row gap-x-4 items-center">
+      <div class="flex flex-row gap-x-2 items-center col-start-1">
         <img
-          class="w-12 h-12 bg-gray-100 rounded-lg p-2"
+          [ngClass]="{ 'bg-gray-100 rounded-md': !competitor.team?.logo }"
+          class="w-10 h-10 p-2"
           src="{{
             competitor.team?.logo ||
               'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
           }}"
-          alt="{{ competitor.team?.name }}"
+          alt="{{ competitor.team?.shortDisplayName }}"
         />
 
-        <h1 class="font-semibold text-lg">{{ competitor.team?.name  }}</h1>
+        <h1 class="font-semibold">
+          {{ competitor.team?.shortDisplayName }}
+          <span class="ml-0.5 text-gray-400 font-normal">{{
+            competitor.team?.name
+          }}</span>
+        </h1>
+      </div>
+      } @if (!Utility.isGameScheduled(game)) {
+      <div class="col-start-2 row-start-1 row-span-2">
+        <div
+          class="grid grid-rows-5 w-fit h-full ml-auto"
+          [ngStyle]="{
+            'grid-template-columns':
+              'repeat(' +
+              ((getCompetitors(game)[0].linescores?.length ?? 0) + 1) +
+              ', minmax(0, 1fr))'
+          }"
+        >
+          @for (header of getLineScoreHeaders(game); track $index) {
+          <h1 class="font-semibold text-sm mx-2 flex items-center justify-center mb-0">
+            {{ header }}
+          </h1>
+          }
+
+          @for (competitor of getCompetitors(game); track competitor.id) {
+          @for (lineScore of competitor.linescores; track $index) {
+          <h1
+            class="font-normal text-gray-600 mx-2 text-center flex items-center justify-center row-span-2"
+          >
+            {{ lineScore.value }}
+          </h1>
+          }
+
+          <h1 class="font-semibold mx-2 text-center flex items-center justify-center row-span-2">
+            {{ competitor.score }}
+          </h1>
+          }
+        </div>
       </div>
       }
     </div>

@@ -7,4 +7,6 @@ public class ScoreboardFetch
     public DateOnly FilterDate { get; set; }
 
     public required string JsonResponse { get; set; }
+
+    public DateTime FetchedDateTime { get; set; }
 }

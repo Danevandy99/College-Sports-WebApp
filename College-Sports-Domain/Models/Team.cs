@@ -16,7 +16,7 @@ namespace College_Sports_WebApp.Database.Models{
         public string color { get; set; }
         public string alternateColor { get; set; }
         public bool isActive { get; set; }
-        public Venue venue { get; set; }
+        //public Venue venue { get; set; }
         public string logo { get; set; }
         public string conferenceId { get; set; }
     }

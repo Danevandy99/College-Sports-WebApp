@@ -21,7 +21,11 @@ namespace College_Sports_WebApp.Database.Models
         public string program { get; set; }
         public string playableUrl { get; set; }
         public string policyUrl { get; set; }
+
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime start { get; set; }
+
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime end { get; set; }
         public string network { get; set; }
         public string networkId { get; set; }
@@ -34,7 +38,11 @@ namespace College_Sports_WebApp.Database.Models
         public string program_eventId { get; set; }
         public string program_eventUrl { get; set; }
         public string program_shortTitle { get; set; }
+
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime program_originalAirDate { get; set; }
+
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime program_firstPresented { get; set; }
         public string webAiringLink { get; set; }
         public string appAiringLink { get; set; }

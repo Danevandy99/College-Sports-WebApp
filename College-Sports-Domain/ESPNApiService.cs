@@ -32,11 +32,16 @@ public class ESPNApiService
             Console.WriteLine(responseString);
             Console.WriteLine(ex.Message);
 
+            // Get temp folder path
+            var tempPath = Path.GetTempPath();
+
+            var filePath = Path.Combine(tempPath, $"scoreboard-{date:yyyyMMdd}.json");
+
             // Save the response to a file for debugging
-            await File.WriteAllTextAsync($"scoreboard-{date:yyyyMMdd}.json", responseString);
+            await File.WriteAllTextAsync(filePath, responseString);
 
             // Print the full file path for the response file
-            Console.WriteLine($"Saved scoreboard response to {Path.GetFullPath($"scoreboard-{date:yyyyMMdd}.json")}");
+            Console.WriteLine($"Saved scoreboard response to {Path.GetFullPath(filePath)}");
 
             return null;
         }

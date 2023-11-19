@@ -51,8 +51,9 @@ namespace College_Sports_WebApp.Controllers
                     return NotFound("Unable to fetch scoreboard result");
                 }
 
-                _context.ScoreboardResults.Add(newScoreboardResult);
-                await _context.SaveChangesAsync();
+                // Don't try to save it for now
+                //_context.ScoreboardResults.Add(newScoreboardResult);
+                //await _context.SaveChangesAsync();
 
                 return newScoreboardResult;
             }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace College_Sports_WebApp.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteDbContext))]
-    partial class SqliteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119045451_MoreChanges5")]
+    partial class MoreChanges5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -542,10 +545,12 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("endDate")
+                    b.Property<string>("endDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("startDate")
+                    b.Property<string>("startDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("year")
@@ -1944,7 +1949,7 @@ namespace College_Sports_WebApp.Migrations.Sqlite
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LeagueSeason", b =>
                 {
-                    b.OwnsOne("College_Sports_WebApp.Database.Models.LeagueSeasonType", "type", b1 =>
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b1 =>
                         {
                             b1.Property<int>("LeagueSeasonId")
                                 .HasColumnType("INTEGER");
@@ -1953,10 +1958,37 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
+                            b1.Property<bool>("completed")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("description")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("detail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
                             b1.Property<int>("id")
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortDetail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("state")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("text")
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 

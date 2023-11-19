@@ -88,8 +88,6 @@ using (var scope = app.Services.CreateAsyncScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<BaseDbContext>();
 
-    await dbContext.Database.EnsureDeletedAsync();
-
     await dbContext.Database.MigrateAsync();
 }
 

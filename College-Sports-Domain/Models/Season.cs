@@ -1,3 +1,6 @@
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+
 namespace College_Sports_WebApp.Database.Models
 {
 
@@ -13,9 +16,22 @@ namespace College_Sports_WebApp.Database.Models
     {
         public int Id { get; set; }
         public int year { get; set; }
-        public string startDate { get; set; }
-        public string endDate { get; set; }
-        public string displayName { get; set; }
-        public Type type { get; set; }
+        public required DateTime startDate { get; set; }
+        public required DateTime endDate { get; set; }
+        public required string displayName { get; set; }
+        public required LeagueSeasonType type { get; set; }
+    }
+
+    [Owned]
+    public class LeagueSeasonType
+    {
+        [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+        public int id { get; set; }
+
+        public int type { get; set; }
+
+        public required string name { get; set; }
+
+        public required string abbreviation { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace College_Sports_WebApp.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteDbContext))]
-    partial class SqliteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119044953_MoreChanges3")]
+    partial class MoreChanges3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -227,6 +230,46 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                     b.HasIndex("Competitionid");
 
                     b.ToTable("Broadcast");
+                });
+
+            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Category", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Videoid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("athleteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("leagueId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("sportId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("teamId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("uid")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Videoid");
+
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competition", b =>
@@ -542,10 +585,12 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("endDate")
+                    b.Property<string>("endDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("startDate")
+                    b.Property<string>("startDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("year")
@@ -1331,6 +1376,13 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                         .HasForeignKey("Competitionid");
                 });
 
+            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Category", b =>
+                {
+                    b.HasOne("College_Sports_WebApp.Database.Models.Video", null)
+                        .WithMany("categories")
+                        .HasForeignKey("Videoid");
+                });
+
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competition", b =>
                 {
                     b.HasOne("College_Sports_WebApp.Database.Models.Event", null)
@@ -1878,17 +1930,51 @@ namespace College_Sports_WebApp.Migrations.Sqlite
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LastPlay", b =>
                 {
-                    b.OwnsOne("College_Sports_WebApp.Database.Models.LastPlayType", "type", b1 =>
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b1 =>
                         {
                             b1.Property<long>("LastPlayid")
                                 .HasColumnType("INTEGER");
 
+                            b1.Property<string>("abbreviation")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<bool>("completed")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("description")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("detail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
                             b1.Property<int>("id")
                                 .HasColumnType("INTEGER");
+
+                            b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortDetail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("state")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("text")
                                 .IsRequired()
                                 .HasColumnType("TEXT");
+
+                            b1.Property<int>("type")
+                                .HasColumnType("INTEGER");
 
                             b1.HasKey("LastPlayid");
 
@@ -1944,7 +2030,7 @@ namespace College_Sports_WebApp.Migrations.Sqlite
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LeagueSeason", b =>
                 {
-                    b.OwnsOne("College_Sports_WebApp.Database.Models.LeagueSeasonType", "type", b1 =>
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b1 =>
                         {
                             b1.Property<int>("LeagueSeasonId")
                                 .HasColumnType("INTEGER");
@@ -1953,10 +2039,37 @@ namespace College_Sports_WebApp.Migrations.Sqlite
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
+                            b1.Property<bool>("completed")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("description")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("detail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
                             b1.Property<int>("id")
                                 .HasColumnType("INTEGER");
 
                             b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortDetail")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("shortName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("state")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("text")
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
@@ -2381,6 +2494,8 @@ namespace College_Sports_WebApp.Migrations.Sqlite
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Video", b =>
                 {
+                    b.Navigation("categories");
+
                     b.Navigation("images");
                 });
 #pragma warning restore 612, 618

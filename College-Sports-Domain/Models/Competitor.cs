@@ -14,7 +14,6 @@ namespace College_Sports_WebApp.Database.Models{
         public string score { get; set; }
         public List<Linescore> linescores { get; set; }
         public List<Statistic> statistics { get; set; }
-        public List<Leader> leaders { get; set; }
         public CuratedRank curatedRank { get; set; }
         public List<Record> records { get; set; }
     }

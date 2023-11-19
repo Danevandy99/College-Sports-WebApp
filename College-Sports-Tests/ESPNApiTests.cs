@@ -33,9 +33,11 @@ public class ESPNApiTests
     [Test]
     public void ParseDateFormat()
     {
-        string dateStr = "2023-10-27T21:24:09.720+0000"; // Your JSON value
+        string dateStr = "2023-11-18T22:00:00+0000"; // Your JSON value
 
-        var didParse = DateTime.TryParseExact(dateStr, "yyyy-MM-ddTHH:mm:ss.fffzzz", CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.None, out DateTime date);
+        var didParse = DateTimeOffset.TryParseExact(dateStr, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset date);
+
+        Console.WriteLine(dateStr, date.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"));
 
         Assert.IsTrue(didParse);
         Assert.IsNotNull(date);

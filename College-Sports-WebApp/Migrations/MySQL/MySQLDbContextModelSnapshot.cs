@@ -21,9 +21,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Airing", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int?>("Competitionid")
                         .HasColumnType("int");
@@ -85,8 +84,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("policyid")
-                        .HasColumnType("int");
+                    b.Property<string>("policyid")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("program")
                         .IsRequired()
@@ -142,49 +141,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.ToTable("Airing");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Athlete", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("active")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("displayName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("fullName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("headshot")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("jersey")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("shortName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("teamid")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("teamid");
-
-                    b.ToTable("Athlete");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.AthletesInvolved", b =>
                 {
                     b.Property<int>("id")
@@ -218,23 +174,17 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("teamid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
 
                     b.HasIndex("LastPlayid");
-
-                    b.HasIndex("teamid");
 
                     b.ToTable("AthletesInvolved");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Audience", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("externalId")
                         .IsRequired()
@@ -282,52 +232,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.ToTable("Broadcast");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Category", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Videoid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("athleteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("leagueId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sportId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("teamId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("uid")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Videoid");
-
-                    b.HasIndex("athleteId");
-
-                    b.HasIndex("leagueId");
-
-                    b.HasIndex("teamId");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competition", b =>
                 {
                     b.Property<int>("id")
@@ -366,23 +270,13 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.Property<int?>("tournamentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("typeid")
-                        .HasColumnType("int");
-
                     b.Property<string>("uid")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("venueid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
 
                     b.HasIndex("Eventid");
-
-                    b.HasIndex("typeid");
-
-                    b.HasIndex("venueid");
 
                     b.ToTable("Competition");
                 });
@@ -496,9 +390,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("marketid")
-                        .HasColumnType("int");
-
                     b.Property<int>("mediaId")
                         .HasColumnType("int");
 
@@ -506,18 +397,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("typeid")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Competitionid");
 
-                    b.HasIndex("marketid");
-
                     b.HasIndex("mediaId");
-
-                    b.HasIndex("typeid");
 
                     b.ToTable("GeoBroadcast");
                 });
@@ -528,8 +412,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("Airingid")
-                        .HasColumnType("int");
+                    b.Property<string>("Airingid")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int?>("Videoid")
                         .HasColumnType("int");
@@ -578,77 +462,13 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.Property<int>("scoreValue")
                         .HasColumnType("int");
 
-                    b.Property<int>("teamid")
-                        .HasColumnType("int");
-
                     b.Property<string>("text")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("typeid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
 
-                    b.HasIndex("teamid");
-
-                    b.HasIndex("typeid");
-
                     b.ToTable("LastPlay");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Leader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Competitorid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LeaderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("abbreviation")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("athleteid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("displayName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("displayValue")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("shortDisplayName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("teamid")
-                        .HasColumnType("int");
-
-                    b.Property<double>("value")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Competitorid");
-
-                    b.HasIndex("LeaderId");
-
-                    b.HasIndex("athleteid");
-
-                    b.HasIndex("teamid");
-
-                    b.ToTable("Leader");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.League", b =>
@@ -725,23 +545,16 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("endDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("endDate")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<string>("startDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("typeid")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("startDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("typeid");
 
                     b.ToTable("LeagueSeason");
                 });
@@ -855,21 +668,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.ToTable("Logo");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Market", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Market");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Media", b =>
                 {
                     b.Property<int>("Id")
@@ -969,9 +767,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Policy", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
@@ -994,12 +791,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.ProgramCategory", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<int?>("Airingid")
-                        .HasColumnType("int");
+                    b.Property<string>("Airingid")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("artworkUrl")
                         .IsRequired()
@@ -1328,12 +1124,7 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("venueid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
-
-                    b.HasIndex("venueid");
 
                     b.ToTable("Team");
                 });
@@ -1359,76 +1150,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.HasIndex("Competitionid");
 
                     b.ToTable("Ticket");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Type", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("abbreviation")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("completed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("detail")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("shortDetail")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("shortName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("state")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("type")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Type");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Venue", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("fullName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("indoor")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Venue");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Video", b =>
@@ -1513,19 +1234,18 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.ViewingPolicy", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<int?>("Policyid")
-                        .HasColumnType("int");
+                    b.Property<string>("Policyid")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("actions")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("audienceid")
-                        .HasColumnType("int");
+                    b.Property<string>("audienceid")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("externalId")
                         .IsRequired()
@@ -1552,9 +1272,7 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
                     b.HasOne("College_Sports_WebApp.Database.Models.Policy", "policy")
                         .WithMany()
-                        .HasForeignKey("policyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("policyid");
 
                     b.HasOne("College_Sports_WebApp.Database.Models.Properties", "properties")
                         .WithMany()
@@ -1564,8 +1282,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
                     b.OwnsOne("College_Sports_WebApp.Database.Models.ProductLinks", "productLinks", b1 =>
                         {
-                            b1.Property<int>("Airingid")
-                                .HasColumnType("int");
+                            b1.Property<string>("Airingid")
+                                .HasColumnType("varchar(255)");
 
                             b1.Property<string>("mobile")
                                 .IsRequired()
@@ -1591,50 +1309,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.Navigation("properties");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Athlete", b =>
-                {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("College_Sports_WebApp.Database.Models.Position", "position", b1 =>
-                        {
-                            b1.Property<int>("Athleteid")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("abbreviation")
-                                .IsRequired()
-                                .HasColumnType("longtext");
-
-                            b1.HasKey("Athleteid");
-
-                            b1.ToTable("Athlete");
-
-                            b1.WithOwner()
-                                .HasForeignKey("Athleteid");
-                        });
-
-                    b.Navigation("position")
-                        .IsRequired();
-
-                    b.Navigation("team");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.AthletesInvolved", b =>
                 {
                     b.HasOne("College_Sports_WebApp.Database.Models.LastPlay", null)
                         .WithMany("athletesInvolved")
                         .HasForeignKey("LastPlayid");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("team");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Audience", b =>
@@ -1655,50 +1334,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .HasForeignKey("Competitionid");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Category", b =>
-                {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Video", null)
-                        .WithMany("categories")
-                        .HasForeignKey("Videoid");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Athlete", "athlete")
-                        .WithMany()
-                        .HasForeignKey("athleteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.League", "league")
-                        .WithMany()
-                        .HasForeignKey("leagueId");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamId");
-
-                    b.Navigation("athlete");
-
-                    b.Navigation("league");
-
-                    b.Navigation("team");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competition", b =>
                 {
                     b.HasOne("College_Sports_WebApp.Database.Models.Event", null)
                         .WithMany("competitions")
                         .HasForeignKey("Eventid");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                        .WithMany()
-                        .HasForeignKey("typeid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Venue", "venue")
-                        .WithMany()
-                        .HasForeignKey("venueid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.OwnsOne("College_Sports_WebApp.Database.Models.Status", "status", b1 =>
                         {
@@ -1715,25 +1355,123 @@ namespace College_Sports_WebApp.Migrations.MySQL
                             b1.Property<int>("period")
                                 .HasColumnType("int");
 
-                            b1.Property<int>("typeid")
-                                .HasColumnType("int");
-
                             b1.HasKey("Competitionid");
-
-                            b1.HasIndex("typeid");
 
                             b1.ToTable("Competition");
 
                             b1.WithOwner()
                                 .HasForeignKey("Competitionid");
 
-                            b1.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                                .WithMany()
-                                .HasForeignKey("typeid")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
+                            b1.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b2 =>
+                                {
+                                    b2.Property<int>("StatusCompetitionid")
+                                        .HasColumnType("int");
 
-                            b1.Navigation("type");
+                                    b2.Property<string>("abbreviation")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<bool>("completed")
+                                        .HasColumnType("tinyint(1)");
+
+                                    b2.Property<string>("description")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("detail")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<int>("id")
+                                        .HasColumnType("int");
+
+                                    b2.Property<string>("name")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("shortDetail")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("shortName")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("state")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("text")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<int>("type")
+                                        .HasColumnType("int");
+
+                                    b2.HasKey("StatusCompetitionid");
+
+                                    b2.ToTable("Competition");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("StatusCompetitionid");
+                                });
+
+                            b1.Navigation("type")
+                                .IsRequired();
+                        });
+
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b1 =>
+                        {
+                            b1.Property<int>("Competitionid")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("abbreviation")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<bool>("completed")
+                                .HasColumnType("tinyint(1)");
+
+                            b1.Property<string>("description")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("detail")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("shortDetail")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("shortName")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("state")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("text")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("type")
+                                .HasColumnType("int");
+
+                            b1.HasKey("Competitionid");
+
+                            b1.ToTable("Competition");
+
+                            b1.WithOwner()
+                                .HasForeignKey("Competitionid");
                         });
 
                     b.OwnsOne("College_Sports_WebApp.Database.Models.Format", "format", b1 =>
@@ -1794,6 +1532,56 @@ namespace College_Sports_WebApp.Migrations.MySQL
                             b1.Navigation("lastPlay");
                         });
 
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Venue", "venue", b1 =>
+                        {
+                            b1.Property<int>("Competitionid")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("capacity")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("fullName")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<bool>("indoor")
+                                .HasColumnType("tinyint(1)");
+
+                            b1.HasKey("Competitionid");
+
+                            b1.ToTable("Competition");
+
+                            b1.WithOwner()
+                                .HasForeignKey("Competitionid");
+
+                            b1.OwnsOne("College_Sports_WebApp.Database.Models.Address", "address", b2 =>
+                                {
+                                    b2.Property<int>("VenueCompetitionid")
+                                        .HasColumnType("int");
+
+                                    b2.Property<string>("city")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("state")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.HasKey("VenueCompetitionid");
+
+                                    b2.ToTable("Competition");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("VenueCompetitionid");
+                                });
+
+                            b1.Navigation("address")
+                                .IsRequired();
+                        });
+
                     b.Navigation("format")
                         .IsRequired();
 
@@ -1803,9 +1591,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.Navigation("status")
                         .IsRequired();
 
-                    b.Navigation("type");
+                    b.Navigation("type")
+                        .IsRequired();
 
-                    b.Navigation("venue");
+                    b.Navigation("venue")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competitor", b =>
@@ -1869,25 +1659,69 @@ namespace College_Sports_WebApp.Migrations.MySQL
                             b1.Property<int>("period")
                                 .HasColumnType("int");
 
-                            b1.Property<int>("typeid")
-                                .HasColumnType("int");
-
                             b1.HasKey("Eventid");
-
-                            b1.HasIndex("typeid");
 
                             b1.ToTable("Event");
 
                             b1.WithOwner()
                                 .HasForeignKey("Eventid");
 
-                            b1.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                                .WithMany()
-                                .HasForeignKey("typeid")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
+                            b1.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b2 =>
+                                {
+                                    b2.Property<int>("StatusEventid")
+                                        .HasColumnType("int");
 
-                            b1.Navigation("type");
+                                    b2.Property<string>("abbreviation")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<bool>("completed")
+                                        .HasColumnType("tinyint(1)");
+
+                                    b2.Property<string>("description")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("detail")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<int>("id")
+                                        .HasColumnType("int");
+
+                                    b2.Property<string>("name")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("shortDetail")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("shortName")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("state")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<string>("text")
+                                        .IsRequired()
+                                        .HasColumnType("longtext");
+
+                                    b2.Property<int>("type")
+                                        .HasColumnType("int");
+
+                                    b2.HasKey("StatusEventid");
+
+                                    b2.ToTable("Event");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("StatusEventid");
+                                });
+
+                            b1.Navigation("type")
+                                .IsRequired();
                         });
 
                     b.OwnsOne("College_Sports_WebApp.Database.Models.Weather", "weather", b1 =>
@@ -1945,29 +1779,93 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .WithMany("geoBroadcasts")
                         .HasForeignKey("Competitionid");
 
-                    b.HasOne("College_Sports_WebApp.Database.Models.Market", "market")
-                        .WithMany()
-                        .HasForeignKey("marketid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("College_Sports_WebApp.Database.Models.Media", "media")
                         .WithMany()
                         .HasForeignKey("mediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                        .WithMany()
-                        .HasForeignKey("typeid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Type", "type", b1 =>
+                        {
+                            b1.Property<int>("GeoBroadcastId")
+                                .HasColumnType("int");
 
-                    b.Navigation("market");
+                            b1.Property<string>("abbreviation")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<bool>("completed")
+                                .HasColumnType("tinyint(1)");
+
+                            b1.Property<string>("description")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("detail")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("shortDetail")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("shortName")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("state")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("text")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("type")
+                                .HasColumnType("int");
+
+                            b1.HasKey("GeoBroadcastId");
+
+                            b1.ToTable("GeoBroadcast");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GeoBroadcastId");
+                        });
+
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.Market", "market", b1 =>
+                        {
+                            b1.Property<int>("GeoBroadcastId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("type")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.HasKey("GeoBroadcastId");
+
+                            b1.ToTable("GeoBroadcast");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GeoBroadcastId");
+                        });
+
+                    b.Navigation("market")
+                        .IsRequired();
 
                     b.Navigation("media");
 
-                    b.Navigation("type");
+                    b.Navigation("type")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Image", b =>
@@ -1983,17 +1881,25 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LastPlay", b =>
                 {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.LastPlayType", "type", b1 =>
+                        {
+                            b1.Property<long>("LastPlayid")
+                                .HasColumnType("bigint");
 
-                    b.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                        .WithMany()
-                        .HasForeignKey("typeid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("text")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.HasKey("LastPlayid");
+
+                            b1.ToTable("LastPlay");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LastPlayid");
+                        });
 
                     b.OwnsOne("College_Sports_WebApp.Database.Models.Probability", "probability", b1 =>
                         {
@@ -2020,36 +1926,8 @@ namespace College_Sports_WebApp.Migrations.MySQL
                     b.Navigation("probability")
                         .IsRequired();
 
-                    b.Navigation("team");
-
-                    b.Navigation("type");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Leader", b =>
-                {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Competitor", null)
-                        .WithMany("leaders")
-                        .HasForeignKey("Competitorid");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Leader", null)
-                        .WithMany("leaders")
-                        .HasForeignKey("LeaderId");
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Athlete", "athlete")
-                        .WithMany()
-                        .HasForeignKey("athleteid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.Navigation("type")
                         .IsRequired();
-
-                    b.HasOne("College_Sports_WebApp.Database.Models.Team", "team")
-                        .WithMany()
-                        .HasForeignKey("teamid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("athlete");
-
-                    b.Navigation("team");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.League", b =>
@@ -2069,13 +1947,35 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LeagueSeason", b =>
                 {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Type", "type")
-                        .WithMany()
-                        .HasForeignKey("typeid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.OwnsOne("College_Sports_WebApp.Database.Models.LeagueSeasonType", "type", b1 =>
+                        {
+                            b1.Property<int>("LeagueSeasonId")
+                                .HasColumnType("int");
 
-                    b.Navigation("type");
+                            b1.Property<string>("abbreviation")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("id")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("name")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("type")
+                                .HasColumnType("int");
+
+                            b1.HasKey("LeagueSeasonId");
+
+                            b1.ToTable("LeagueSeason");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LeagueSeasonId");
+                        });
+
+                    b.Navigation("type")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Linescore", b =>
@@ -2182,49 +2082,11 @@ namespace College_Sports_WebApp.Migrations.MySQL
                         .HasForeignKey("Competitorid");
                 });
 
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Team", b =>
-                {
-                    b.HasOne("College_Sports_WebApp.Database.Models.Venue", "venue")
-                        .WithMany()
-                        .HasForeignKey("venueid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("venue");
-                });
-
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Ticket", b =>
                 {
                     b.HasOne("College_Sports_WebApp.Database.Models.Competition", null)
                         .WithMany("tickets")
                         .HasForeignKey("Competitionid");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Venue", b =>
-                {
-                    b.OwnsOne("College_Sports_WebApp.Database.Models.Address", "address", b1 =>
-                        {
-                            b1.Property<int>("Venueid")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("city")
-                                .IsRequired()
-                                .HasColumnType("longtext");
-
-                            b1.Property<string>("state")
-                                .IsRequired()
-                                .HasColumnType("longtext");
-
-                            b1.HasKey("Venueid");
-
-                            b1.ToTable("Venue");
-
-                            b1.WithOwner()
-                                .HasForeignKey("Venueid");
-                        });
-
-                    b.Navigation("address")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Video", b =>
@@ -2436,9 +2298,7 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
                     b.HasOne("College_Sports_WebApp.Database.Models.Audience", "audience")
                         .WithMany()
-                        .HasForeignKey("audienceid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("audienceid");
 
                     b.Navigation("audience");
                 });
@@ -2474,8 +2334,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Competitor", b =>
                 {
-                    b.Navigation("leaders");
-
                     b.Navigation("linescores");
 
                     b.Navigation("records");
@@ -2498,11 +2356,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.LastPlay", b =>
                 {
                     b.Navigation("athletesInvolved");
-                });
-
-            modelBuilder.Entity("College_Sports_WebApp.Database.Models.Leader", b =>
-                {
-                    b.Navigation("leaders");
                 });
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.League", b =>
@@ -2531,8 +2384,6 @@ namespace College_Sports_WebApp.Migrations.MySQL
 
             modelBuilder.Entity("College_Sports_WebApp.Database.Models.Video", b =>
                 {
-                    b.Navigation("categories");
-
                     b.Navigation("images");
                 });
 #pragma warning restore 612, 618

@@ -22,7 +22,6 @@ namespace College_Sports_WebApp.Database.Models{
         public DeviceRestrictions deviceRestrictions { get; set; }
         public bool syndicatable { get; set; }
         public int duration { get; set; }
-        public List<Category> categories { get; set; }
         public List<string> keywords { get; set; }
         public PosterImages posterImages { get; set; }
         public List<Image> images { get; set; }

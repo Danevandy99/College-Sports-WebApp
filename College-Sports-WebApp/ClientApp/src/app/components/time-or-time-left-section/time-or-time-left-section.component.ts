@@ -41,6 +41,23 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
     return Utility.isGameScheduled(game);
   });
 
+  protected liveGameText = computed(() => {
+    const game  = this._game();
+
+    if (!game) {
+      return '';
+    }
+
+    if (Utility.isGameAtHalftime(game)) {
+      return 'Halftime';
+    } else if (Utility.isGameAtEndOfRegulation(game)) {
+      return 'End of Regulation';
+    } else {
+      return `${game?.status?.displayClock} - ${this.periodDisplayName()}`
+    }
+  });
+
+
   protected periodDisplayName = computed(() => {
     const game = this._game();
     if (!game) {

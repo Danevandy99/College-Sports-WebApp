@@ -6,7 +6,15 @@ export class Utility {
   }
 
   public static isGameLive(game: Event): boolean {
-    return ['STATUS_IN_PROGRESS', 'STATUS_HALFTIME'].includes(game.competitions?.at(0)?.status?.type?.name ?? '');
+    return ['STATUS_IN_PROGRESS', 'STATUS_HALFTIME', 'STATUS_END_PERIOD'].includes(game.competitions?.at(0)?.status?.type?.name ?? '');
+  }
+
+  public static isGameAtHalftime(game: Event): boolean {
+    return game.competitions?.at(0)?.status?.type?.name === 'STATUS_HALFTIME';
+  }
+
+  public static isGameAtEndOfRegulation(game: Event): boolean {
+    return game.competitions?.at(0)?.status?.type?.name === 'STATUS_END_PERIOD' && game.competitions?.at(0)?.status?.period === 2;
   }
 
   public static isGameScheduled(game: Event): boolean {

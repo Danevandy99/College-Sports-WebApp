@@ -9,7 +9,7 @@
       <div class="flex flex-row gap-x-2 items-center col-start-1">
         <img
           [ngClass]="{ 'bg-gray-100 rounded-md': !competitor.team?.logo }"
-          class="w-10 h-10 p-2"
+          class="w-6 h-6"
           src="{{
             competitor.team?.logo ||
               'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
@@ -44,7 +44,7 @@
           @for (competitor of getCompetitors(game); track competitor.id) {
           @for (lineScore of competitor.linescores; track $index) {
           <h1
-            class="font-normal text-gray-600 mx-2 text-center flex items-center justify-center row-span-2"
+            class="font-normal text-gray-400 mx-2 text-center flex items-center justify-center row-span-2"
           >
             {{ lineScore.value }}
           </h1>

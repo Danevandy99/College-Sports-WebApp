@@ -30,10 +30,12 @@ namespace College_Sports_WebApp.Controllers
         {
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
+            var tenSecondsAgo = DateTime.UtcNow.AddSeconds(-10);
+
             var storedScoreboardFetch = await _context.ScoreboardFetches
                 .AsNoTracking()
                 .OrderByDescending(x => x.FetchedDateTime)
-                .FirstOrDefaultAsync(x => x.FilterDate == filterDate.Value);
+                .FirstOrDefaultAsync(x => x.FilterDate == filterDate.Value && x.FetchedDateTime >= tenSecondsAgo);
 
             if (storedScoreboardFetch is not null)
             {
@@ -67,6 +69,9 @@ namespace College_Sports_WebApp.Controllers
 
                 _context.ScoreboardFetches.Add(newScoreboardFetch);
                 await _context.SaveChangesAsync();
+
+                // Remove the scoreboard fetches with a filter date that matches the current filter date
+                await _context.ScoreboardFetches.Where(x => x.FilterDate == filterDate).ExecuteDeleteAsync();
 
                 return newScoreboardResult;
             }

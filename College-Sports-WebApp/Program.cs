@@ -43,13 +43,13 @@ builder.Services.AddHttpClient<ESPNApiService>(client =>
         client.DefaultRequestHeaders.AcceptCharset.ParseAdd("utf-8;q=0.7,*;q=0.3");
     });
 
-builder.Services.AddSingleton<ESPNFetchingService>();
-builder.Services.AddHostedService(provider => provider.GetRequiredService<ESPNFetchingService>());
+// builder.Services.AddSingleton<ESPNFetchingService>();
+// builder.Services.AddHostedService(provider => provider.GetRequiredService<ESPNFetchingService>());
 
-builder.Services.Configure<HostOptions>(hostOptions =>
-      {
-          hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
-      });
+// builder.Services.Configure<HostOptions>(hostOptions =>
+//       {
+//           hostOptions.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+//       });
 
 builder.Services.AddSwaggerGen();
 

@@ -6,7 +6,7 @@ export class Utility {
   }
 
   public static isGameLive(game: Event): boolean {
-    return game.competitions?.at(0)?.status?.type?.name === 'STATUS_IN_PROGRESS';
+    return ['STATUS_IN_PROGRESS', 'STATUS_HALFTIME'].includes(game.competitions?.at(0)?.status?.type?.name ?? '');
   }
 
   public static isGameScheduled(game: Event): boolean {

@@ -65,4 +65,48 @@ export class AppComponent {
 
     return [...headers, 'T'];
   }
+
+  protected idealTextColor(bgColor?: string | null): string {
+
+    if (!bgColor) {
+      return '#000000';
+    }
+
+    var nThreshold = 105;
+    var components = this.getRGBComponents(bgColor);
+    var bgDelta = (components.R * 0.299) + (components.G * 0.587) + (components.B * 0.114);
+
+    return ((255 - bgDelta) < nThreshold) ? "#000000" : "#ffffff";
+  }
+
+  private getRGBComponents(color: string): { R: number, G: number, B: number } {
+
+    var r = color.substring(1, 3);
+    var g = color.substring(3, 5);
+    var b = color.substring(5, 7);
+
+    return {
+      R: parseInt(r, 16),
+      G: parseInt(g, 16),
+      B: parseInt(b, 16)
+    };
+  }
+
+  protected competitorWinnerIndex(game: Event): number {
+    const competitors = this.getCompetitors(game);
+
+    if (competitors.length !== 2) {
+      return -1;
+    }
+
+    const winner = competitors.sort((a, b) => {
+      return +(b.score ?? "0") - +(a.score ?? "0");
+    })[0];
+
+    if (!winner) {
+      return -1;
+    }
+
+    return competitors.indexOf(winner);
+  }
 }

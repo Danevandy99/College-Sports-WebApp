@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApiModule } from '../api/api.module';
 import { TimeOrTimeLeftSectionComponent } from './components/time-or-time-left-section/time-or-time-left-section.component';
+import { TeamRecordSectionComponent } from './components/team-record-section/team-record-section.component';
 
 const routes: Routes = [
 
@@ -15,7 +16,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    TimeOrTimeLeftSectionComponent
+    TimeOrTimeLeftSectionComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     ApiModule.forRoot({ rootUrl: '' }),
+    TeamRecordSectionComponent,
   ],
   providers: [
     { provide: APP_ID, useValue: 'ng-cli-universal' }

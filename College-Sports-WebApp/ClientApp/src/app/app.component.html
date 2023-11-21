@@ -1,17 +1,26 @@
-<div class="flex flex-col gap-y-2 p-2 bg-gray-100">
+<div
+  class="grid grid-flow-row 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 bg-gray-100"
+>
   @for (game of games(); track game.id) {
   <div class="game-card bg-white rounded-lg p-2">
     <app-time-or-time-left-section
       [game]="game"
     ></app-time-or-time-left-section>
-    <div class="grid grid-cols-2 grid-rows-5 gap-y-1">
+    <div class="grid grid-flow-col grid-rows-5 gap-y-1">
       <!-- This just forces the two teams to line up with their score lines -->
-      <div class="flex col-start-1"></div>
+      <div class="flex col-start-1 min-h-[16px]"></div>
       @for (competitor of getCompetitors(game); track competitor.id;) {
-      <div class="flex flex-row gap-x-2 items-center col-start-1 row-span-2">
+      <div
+        class="flex flex-row gap-x-2 items-center col-start-1 row-span-2"
+        [ngClass]="{
+          'opacity-50':
+            !(competitorWinnerIndex(game) === $index) &&
+            Utility.isGameFinished(game)
+        }"
+      >
         <img
-          [ngClass]="{ 'bg-gray-100 rounded-md': !competitor.team?.logo }"
-          class="w-6 h-6 ml-1"
+          [ngClass]="{ 'bg-gray-100 rounded-full': !competitor.team?.logo }"
+          class="w-10 h-10 ml-1"
           src="{{
             competitor.team?.logo ||
               'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
@@ -19,12 +28,30 @@
           alt="{{ competitor.team?.shortDisplayName }}"
         />
 
-        <h1 class="font-semibold">
-          {{ competitor.team?.shortDisplayName }}
-          <span class="ml-0.5 text-gray-400 font-normal hidden md:inline">{{
-            competitor.team?.name
-          }}</span>
-        </h1>
+        <div class="flex flex-col justify-evenly h-full">
+          <div class="flex flex-row items-center">
+            @if (competitor.curatedRank?.current &&
+            (competitor.curatedRank?.current ?? 0) < 99) {
+            <h2
+              class="text-xs text-gray-400 inline-flex items-baseline justify-center mr-1"
+            >
+              #{{ competitor.curatedRank?.current }}
+            </h2>
+            }
+            <h1
+              class="font-semibold text-sm inline-flex items-baseline gap-x-1 leading-none"
+            >
+              {{ competitor.team?.shortDisplayName }}
+              <span class="ml-0.5 text-gray-400 font-normal hidden sm:inline">{{
+                competitor.team?.name
+              }}</span>
+            </h1>
+          </div>
+          <app-team-record-section
+            class="block"
+            [competitor]="competitor"
+          ></app-team-record-section>
+        </div>
       </div>
       } @if (!Utility.isGameScheduled(game)) {
       <div class="col-start-2 row-start-1 row-span-5">
@@ -38,12 +65,12 @@
           }"
         >
           @for (header of getLineScoreHeaders(game); track $index) {
-          <h1 class="font-semibold text-sm mx-2 flex items-center justify-center mb-0">
+          <h1
+            class="font-semibold text-sm mx-2 flex items-center justify-center mb-0"
+          >
             {{ header }}
           </h1>
-          }
-
-          @for (competitor of getCompetitors(game); track competitor.id) {
+          } @for (competitor of getCompetitors(game); track competitor.id) {
           @for (lineScore of competitor.linescores; track $index) {
           <h1
             class="font-normal text-gray-400 mx-2 text-center flex items-center justify-center row-span-2"
@@ -52,8 +79,21 @@
           </h1>
           }
 
-          <h1 class="font-semibold mx-2 text-center flex items-center justify-center row-span-2">
+          <h1
+            class="font-semibold mx-2 text-center flex items-center justify-center row-span-2 relative"
+            [ngClass]="{
+              'opacity-50':
+                !(competitorWinnerIndex(game) === $index) &&
+                Utility.isGameFinished(game)
+            }"
+          >
             {{ competitor.score }}
+            @if (competitorWinnerIndex(game) === $index &&
+            !Utility.isGameLive(game)) {
+            <span class="text-xs absolute right-0 translate-x-full pl-1"
+              >&#9664;</span
+            >
+            }
           </h1>
           }
         </div>

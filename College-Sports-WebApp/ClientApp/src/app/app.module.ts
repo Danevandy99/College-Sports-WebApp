@@ -9,6 +9,7 @@ import { ApiModule } from '../api/api.module';
 import { TimeOrTimeLeftSectionComponent } from './components/time-or-time-left-section/time-or-time-left-section.component';
 import { TeamRecordSectionComponent } from './components/team-record-section/team-record-section.component';
 import { WatchButtonComponent } from './components/watch-button/watch-button.component';
+import { NgOptimizedImage } from '@angular/common';
 
 const routes: Routes = [
 
@@ -27,7 +28,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ApiModule.forRoot({ rootUrl: '' }),
     TeamRecordSectionComponent,
-    WatchButtonComponent
+    WatchButtonComponent,
+    NgOptimizedImage,
   ],
   providers: [
     { provide: APP_ID, useValue: 'ng-cli-universal' }

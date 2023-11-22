@@ -3,7 +3,7 @@
 >
   @for (game of games(); track game.id) {
   <div class="game-card bg-white rounded-lg p-2">
-    <div class="flex flex-row">
+    <div class="flex flex-row mb-2">
       <app-time-or-time-left-section
         [game]="game"
       ></app-time-or-time-left-section>
@@ -23,15 +23,17 @@
             Utility.isGameFinished(game)
         }"
       >
+        @if (competitor.team?.logo) {
         <img
-          [ngClass]="{ 'bg-gray-100 rounded-full': !competitor.team?.logo }"
           class="w-10 h-10 ml-1"
-          src="{{
-            competitor.team?.logo ||
-              'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-          }}"
+          width="20"
+          height="20"
+          ngSrc="{{ competitor.team?.logo }}"
           alt="{{ competitor.team?.shortDisplayName }}"
         />
+        } @else {
+        <div class="w-10 h-10 ml-1 bg-gray-100 rounded-full"></div>
+        }
 
         <div class="flex flex-col justify-evenly h-full">
           <div class="flex flex-row items-center">

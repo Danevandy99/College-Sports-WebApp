@@ -1,0 +1,10 @@
+@if (!isGameFinished() && channelName()) {
+<a
+  [href]="linkToWatch()"
+  target="_blank"
+  [ngClass]="[getChannelColorClasses(channelName()), (isGameLive() ? '' : 'opacity-50 pointer-events-none')]"
+  class="py-1.5 px-3 text-xs rounded-full font-semibold"
+>
+  &#9654; {{ channelName() }}</a
+>
+}

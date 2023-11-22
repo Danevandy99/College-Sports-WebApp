@@ -9,7 +9,7 @@ namespace College_Sports_WebApp.Database.Models
         [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
         public long id { get; set; }
         public required LastPlayType type { get; set; }
-        public required string text { get; set; }
+        public string? text { get; set; }
         public int scoreValue { get; set; }
         //public Team team { get; set; }
         public required Probability probability { get; set; }

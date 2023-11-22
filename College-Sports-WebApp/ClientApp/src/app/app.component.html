@@ -3,9 +3,14 @@
 >
   @for (game of games(); track game.id) {
   <div class="game-card bg-white rounded-lg p-2">
-    <app-time-or-time-left-section
-      [game]="game"
-    ></app-time-or-time-left-section>
+    <div class="flex flex-row">
+      <app-time-or-time-left-section
+        [game]="game"
+      ></app-time-or-time-left-section>
+
+      <app-watch-button class="ml-auto" [game]="game"></app-watch-button>
+    </div>
+
     <div class="grid grid-flow-col grid-rows-5 gap-y-1">
       <!-- This just forces the two teams to line up with their score lines -->
       <div class="flex col-start-1 min-h-[16px]"></div>

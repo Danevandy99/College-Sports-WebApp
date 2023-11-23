@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs';
 import { ApiEspnApiScoreboardGet$Json$Params } from 'src/api/fn/espn-api/api-espn-api-scoreboard-get-json';
 import { Competitor, Event, Team } from 'src/api/models';
 import { Utility } from 'src/utility';
+import { DarkModeService } from './services/dark-mode.service';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,7 @@ export class AppComponent {
     return [...liveGames, ...scheduledGames, ...finishedGames]
   });
 
-  constructor(private espnApiService: EspnApiService) { }
+  constructor(private espnApiService: EspnApiService, protected darkModeService: DarkModeService) { }
 
   protected getCompetitors(game: Event): Competitor[] {
     if (!game.competitions || game.competitions.length === 0) {

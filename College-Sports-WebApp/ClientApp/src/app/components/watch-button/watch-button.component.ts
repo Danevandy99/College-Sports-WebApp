@@ -60,6 +60,7 @@ export class WatchButtonComponent {
       case "ESPN2":
       case "ESPN+":
       case "BIG12|ESPN+":
+      case "ACCNX":
         const airing = game.competitions?.at(0)?.airings?.at(0);
 
         if (!airing) {
@@ -86,13 +87,14 @@ export class WatchButtonComponent {
     switch (channelName) {
       case "ESPN":
       case "ESPN2":
-        return "bg-red-500 text-white";
+        return "bg-red-500 text-white dark:bg-red-600 dark:text-red-900 ";
       case "ESPN+":
       case "BIG12|ESPN+":
-        return "bg-yellow-400 text-black";
+        return "bg-yellow-400 text-black dark:bg-yellow-500 dark:text-yellow-900";
       case "ESPNU":
         return "bg-black text-red-500";
       case "FS1":
+      case "ACCNX":
         return "bg-blue-900 text-white";
       case "BTN":
         return "bg-sky-600 text-white";

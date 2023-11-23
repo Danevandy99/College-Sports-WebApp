@@ -1,13 +1,13 @@
 @if (isGameScheduled()) {
-<p class="mt-1 ml-1 font-semibold text-gray-600 text-sm">
+<p class="mt-1 ml-1 font-semibold text-gray-600 dark:text-gray-400 text-sm">
   {{ _game()?.date | date : "shortTime" }}
 </p>
 } @else if (isGameLive()) {
-<div class="bg-white border-red-500 border-solid border-[1px] py-1 px-2 text-white flex flex-row items-center rounded-md w-min overflow-hidden relative">
+<div class=" dark:bg-gray-950 border-red-500 border-solid border-[1px] py-1 px-2 text-white flex flex-row items-center rounded-md w-min overflow-hidden relative">
   <div class="w-2 h-2 bg-red-500 rounded-full mr-1 animate-pulse z-10"></div>
   <p class="text-xs ml-1 font-semibold whitespace-nowrap text-red-500 z-10">{{ liveGameText() }}</p>
-  <div class="h-full bg-red-100 absolute bottom-0 left-0 top-0 z-0" [ngStyle]="{ 'width': progressBarWidth() }"></div>
+  <div class="h-full bg-red-500 opacity-[25%] absolute bottom-0 left-0 top-0 z-0" [ngStyle]="{ 'width': progressBarWidth() }"></div>
 </div>
 } @else if (isGameFinished()) {
-<p class="mt-1 ml-1 font-semibold text-gray-600 text-sm">Final</p>
+<p class="mt-1 ml-1 font-semibold text-gray-600 dark:text-gray-400 text-sm">Final</p>
 }

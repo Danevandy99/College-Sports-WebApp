@@ -13,9 +13,11 @@ import { Utility } from 'src/utility';
 export class WatchButtonComponent {
 
   protected game = signal<Event | null>(null);
-  @Input('game') set _game(value: Event) {
+  @Input('game') set _game(value: Event | null) {
     this.game.set(value);
   }
+
+  protected isLoading = computed(() => !this.game());
 
   protected channelName = computed(() => {
     const game = this.game();
@@ -60,7 +62,11 @@ export class WatchButtonComponent {
       case "ESPN2":
       case "ESPN+":
       case "BIG12|ESPN+":
+      case "ACCN":
       case "ACCNX":
+      case "SECN":
+      case "SECN+":
+      case "PAC12":
         const airing = game.competitions?.at(0)?.airings?.at(0);
 
         if (!airing) {
@@ -76,6 +82,8 @@ export class WatchButtonComponent {
         return "https://www.cbssports.com/watch/college-basketball";
       case "FS1":
         return "https://www.foxsports.com/live/fs1";
+      case "FS2":
+        return "https://www.foxsports.com/live/fs2";
       case "BTN":
         return "https://www.foxsports.com/live/btn";
       default:
@@ -93,13 +101,21 @@ export class WatchButtonComponent {
         return "bg-yellow-400 text-black dark:bg-yellow-500 dark:text-yellow-900";
       case "ESPNU":
         return "bg-black text-red-500";
+      case "FOX":
       case "FS1":
+      case "FS2":
+      case "ACCN":
       case "ACCNX":
         return "bg-blue-900 text-white";
       case "BTN":
         return "bg-sky-600 text-white";
       case "CBSSN":
         return "bg-blue-700 text-white";
+      case "SECN":
+      case "SECN+":
+        return "bg-[#004b8d] text-[#ffd046] hover:text-[#ffd046]";
+      case "PAC12":
+        return "bg-[#004b91] text-[#fff] hover:text-[#fff]";
       default:
         return "bg-purple-500 text-white";
     }

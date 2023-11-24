@@ -1,4 +1,6 @@
-@if (!isGameFinished() && channelName()) {
+@if (isLoading()) {
+  <p class="mb-0 py-1.5 px-3 text-xs rounded-full font-semibold w-16 bg-gray-200 dark:bg-gray-800 animate-pulse leading-none">&nbsp;</p>
+} @else if (!isGameFinished() && channelName()) {
 <a
   [href]="linkToWatch()"
   target="_blank"

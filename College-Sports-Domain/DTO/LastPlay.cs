@@ -12,7 +12,7 @@ namespace College_Sports_WebApp.Database.Models
         public string? text { get; set; }
         public int scoreValue { get; set; }
         //public Team team { get; set; }
-        public required Probability probability { get; set; }
+        public Probability? probability { get; set; }
         public List<AthletesInvolved> athletesInvolved { get; set; } = new List<AthletesInvolved>();
     }
 

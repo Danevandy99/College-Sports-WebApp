@@ -9,13 +9,13 @@ import { Utility } from 'src/utility';
 })
 export class TimeOrTimeLeftSectionComponent implements OnInit {
 
-  protected _game = signal<Event | null>(null);
-  @Input() set game(value: Event) {
-    this._game.set(value);
+  protected game = signal<Event | null>(null);
+  @Input('game') set _game(value: Event | null) {
+    this.game.set(value);
   };
 
   protected isGameLive = computed(() => {
-    const game = this._game();
+    const game = this.game();
     if (!game) {
       return false;
     }
@@ -24,7 +24,7 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
   });
 
   protected isGameFinished = computed(() => {
-    const game = this._game();
+    const game = this.game();
     if (!game) {
       return false;
     }
@@ -33,7 +33,7 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
   });
 
   protected isGameScheduled = computed(() => {
-    const game = this._game();
+    const game = this.game();
     if (!game) {
       return false;
     }
@@ -42,7 +42,7 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
   });
 
   protected liveGameText = computed(() => {
-    const game  = this._game();
+    const game  = this.game();
 
     if (!game) {
       return '';
@@ -59,7 +59,7 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
 
 
   protected periodDisplayName = computed(() => {
-    const game = this._game();
+    const game = this.game();
     if (!game) {
       return '';
     }
@@ -68,7 +68,7 @@ export class TimeOrTimeLeftSectionComponent implements OnInit {
   });
 
   protected percentageOfGameRemaining = computed(() => {
-    const game = this._game();
+    const game = this.game();
     if (!game) {
       return 0;
     }

@@ -1,0 +1,107 @@
+<div class="game-card dark:bg-gray-900 rounded-lg p-2">
+  <div class="flex flex-row mb-2">
+    <app-time-or-time-left-section
+      [game]="game()"
+    ></app-time-or-time-left-section>
+
+    <app-watch-button class="ml-auto" [game]="game()"></app-watch-button>
+  </div>
+
+  <div class="grid grid-flow-col grid-rows-5 gap-y-1">
+    <!-- This just forces the two teams to line up with their score lines -->
+    <div class="flex col-start-1 min-h-[16px]"></div>
+    @for (competitor of competitors(); track competitor.id;) {
+    <div
+      class="flex flex-row gap-x-2 items-center col-start-1 row-span-2"
+      [ngClass]="{
+        'opacity-50':
+          !(competitorWinnerIndex() === $index) &&
+          Utility.isGameFinished(game())
+      }"
+    >
+      @if (competitor.team?.logo) {
+      <img
+        class="w-10 h-10 ml-1"
+        width="20"
+        height="20"
+        ngSrc="{{ competitor.team?.logo }}"
+        alt="{{ competitor.team?.shortDisplayName }}"
+      />
+      } @else {
+      <div class="w-10 h-10 ml-1 bg-gray-100 dark:bg-gray-800 rounded-full"></div>
+      }
+
+      <div class="flex flex-col justify-evenly h-full">
+        <div class="flex flex-row items-center">
+          @if (competitor.curatedRank?.current &&
+          (competitor.curatedRank?.current ?? 0) < 99) {
+          <h2
+            class="text-xs text-gray-400 dark:text-gray-600 inline-flex items-baseline justify-center mr-1"
+          >
+            #{{ competitor.curatedRank?.current }}
+          </h2>
+          }
+          <h1
+            class="font-semibold text-sm inline-flex items-baseline gap-x-1 leading-none dark:text-white"
+          >
+            {{ competitor.team?.shortDisplayName }}
+            <span
+              class="ml-0.5 text-gray-400 dark:text-gray-600 font-normal hidden sm:inline"
+              >{{ competitor.team?.name }}</span
+            >
+          </h1>
+        </div>
+        <app-team-record-section
+          class="block"
+          [competitor]="competitor"
+        ></app-team-record-section>
+      </div>
+    </div>
+    } @if (!Utility.isGameScheduled(game())) {
+    <div class="col-start-2 row-start-1 row-span-5">
+      <div
+        class="grid grid-rows-5 w-fit h-full ml-auto"
+        [ngStyle]="{
+          'grid-template-columns':
+            'repeat(' +
+            lineScoreHeaderColumnCount() +
+            ', minmax(0, 1fr))'
+        }"
+      >
+        @for (header of lineScoreHeaders(); track $index) {
+        <h1
+          class="font-semibold text-sm mx-2 flex items-center justify-center mb-0 dark:text-white"
+        >
+          {{ header }}
+        </h1>
+        } @for (competitor of competitors(); track competitor.id) {
+        @for (lineScore of competitor.linescores; track $index) {
+        <h1
+          class="font-normal text-gray-400 dark:text-gray-600 mx-2 text-center flex items-center justify-center row-span-2"
+        >
+          {{ lineScore.value }}
+        </h1>
+        }
+
+        <h1
+          class="font-semibold mx-2 text-center flex items-center justify-center row-span-2 relative dark:text-white"
+          [ngClass]="{
+            'opacity-50':
+              !(competitorWinnerIndex() === $index) &&
+              Utility.isGameFinished(game())
+          }"
+        >
+          {{ competitor.score }}
+          @if (competitorWinnerIndex() === $index &&
+          !Utility.isGameLive(game())) {
+          <span class="text-xs absolute right-0 translate-x-full pl-1 dark:text-white"
+            >&#9664;</span
+          >
+          }
+        </h1>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

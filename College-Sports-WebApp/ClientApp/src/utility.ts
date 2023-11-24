@@ -1,23 +1,43 @@
 import { Event } from "./api/models";
 
 export class Utility {
-  public static isGameFinished(game: Event): boolean {
+  public static isGameFinished(game: Event | null): boolean {
+    if (!game) {
+      return false;
+    }
+
     return game.competitions?.at(0)?.status?.type?.name === 'STATUS_FINAL';
   }
 
-  public static isGameLive(game: Event): boolean {
+  public static isGameLive(game: Event | null): boolean {
+    if (!game) {
+      return false;
+    }
+
     return ['STATUS_IN_PROGRESS', 'STATUS_HALFTIME', 'STATUS_END_PERIOD'].includes(game.competitions?.at(0)?.status?.type?.name ?? '');
   }
 
-  public static isGameAtHalftime(game: Event): boolean {
+  public static isGameAtHalftime(game: Event | null): boolean {
+    if (!game) {
+      return false;
+    }
+
     return game.competitions?.at(0)?.status?.type?.name === 'STATUS_HALFTIME';
   }
 
-  public static isGameAtEndOfRegulation(game: Event): boolean {
+  public static isGameAtEndOfRegulation(game: Event | null): boolean {
+    if (!game) {
+      return false;
+    }
+
     return game.competitions?.at(0)?.status?.type?.name === 'STATUS_END_PERIOD' && game.competitions?.at(0)?.status?.period === 2;
   }
 
-  public static isGameScheduled(game: Event): boolean {
+  public static isGameScheduled(game: Event | null): boolean {
+    if (!game) {
+      return false;
+    }
+
     return game.competitions?.at(0)?.status?.type?.name === 'STATUS_SCHEDULED';
   }
 

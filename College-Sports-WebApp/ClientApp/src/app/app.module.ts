@@ -10,6 +10,7 @@ import { TimeOrTimeLeftSectionComponent } from './components/time-or-time-left-s
 import { TeamRecordSectionComponent } from './components/team-record-section/team-record-section.component';
 import { WatchButtonComponent } from './components/watch-button/watch-button.component';
 import { NgOptimizedImage } from '@angular/common';
+import { GameCardComponent } from './components/game-card/game-card.component';
 
 const routes: Routes = [
 
@@ -19,7 +20,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     TimeOrTimeLeftSectionComponent,
-
+    GameCardComponent,
   ],
   imports: [
     BrowserModule,

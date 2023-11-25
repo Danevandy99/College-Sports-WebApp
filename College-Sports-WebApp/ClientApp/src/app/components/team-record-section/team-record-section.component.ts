@@ -16,6 +16,8 @@ export class TeamRecordSectionComponent {
     this.competitor.set(value);
   };
 
+  protected isLoading = computed(() => !(this.competitor()?.team));
+
   protected overallRecordText = computed(() => {
     const competitor = this.competitor();
     if (!competitor) {

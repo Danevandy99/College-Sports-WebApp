@@ -11,6 +11,7 @@ import { TeamRecordSectionComponent } from './components/team-record-section/tea
 import { WatchButtonComponent } from './components/watch-button/watch-button.component';
 import { NgOptimizedImage } from '@angular/common';
 import { GameCardComponent } from './components/game-card/game-card.component';
+import { BasketballConferencesDropdownComponent } from './components/basketball-conferences-dropdown/basketball-conferences-dropdown.component';
 
 const routes: Routes = [
 
@@ -21,6 +22,7 @@ const routes: Routes = [
     AppComponent,
     TimeOrTimeLeftSectionComponent,
     GameCardComponent,
+    BasketballConferencesDropdownComponent
   ],
   imports: [
     BrowserModule,

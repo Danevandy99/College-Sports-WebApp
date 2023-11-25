@@ -1,24 +1,40 @@
-<div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }" class="">
-  <div class="h-12 w-full sticky top-0 flex flex-row items-center dark:bg-gray-900 z-50">
-    <div class="container">
-      <button (click)="darkModeService.toggleDarkMode()" class="dark:bg-gray-800 dark:text-white text-xs rounded-full py-1.5 px-2.5">Toggle Dark Mode</button>
+<div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
+  <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
+    <div
+      class="h-12 w-full sticky top-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 z-50"
+    >
+      <div class="container flex">
+        <button
+          (click)="darkModeService.toggleDarkMode()"
+          class="bg-gray-100 dark:bg-gray-800 dark:text-white text-xs rounded-full py-1.5 px-3"
+        >
+          Toggle Dark Mode
+        </button>
+
+        <app-basketball-conferences-dropdown
+          class="ml-auto"
+          [selectedConference]="selectedConference()"
+          (selectedConferenceChange)="selectedConference.set($event)"
+        ></app-basketball-conferences-dropdown>
+      </div>
     </div>
-  </div>
-  <div
-    class="grid grid-rows-[min-content] 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 bg-gray-100 dark:bg-gray-950 min-h-screen align-top"
-  >
-    @if (isLoading()) {
+    <div
+      class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2"
+    >
+      @if (isLoading()) {
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
-    }
-
-    @for (game of games(); track game.id) {
+      } @for (game of games(); track game.id) {
       <app-game-card [game]="game"></app-game-card>
-    }
-
+      } @if (!isLoading() && games().length === 0) {
+      <div class="col-span-full py-10 text-center rounded-lg bg-[#fff] dark:bg-gray-900">
+        <p class="text-gray-500 dark:text-gray-400 text-lg">No games</p>
+      </div>
+      }
+    </div>
   </div>
 </div>

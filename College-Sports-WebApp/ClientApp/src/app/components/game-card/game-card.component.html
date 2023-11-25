@@ -1,4 +1,4 @@
-<div class="game-card dark:bg-gray-900 rounded-lg p-2">
+<div class="game-card dark:bg-gray-900 bg-[#fff] rounded-lg p-2">
   <div class="flex flex-row mb-2">
     <app-time-or-time-left-section
       [game]="game()"
@@ -28,7 +28,7 @@
         alt="{{ competitor.team?.shortDisplayName }}"
       />
       } @else {
-      <div class="w-10 h-10 ml-1 bg-gray-100 dark:bg-gray-800 rounded-full"></div>
+      <div class="w-10 h-10 ml-1 bg-gray-100 dark:bg-gray-800 rounded-full" [ngClass]="{ 'animate-pulse': isLoading() }"></div>
       }
 
       <div class="flex flex-col justify-evenly h-full">
@@ -43,8 +43,11 @@
           }
           <h1
             class="font-semibold text-sm inline-flex items-baseline gap-x-1 leading-none dark:text-white"
+            [ngClass]="{
+              'w-32 rounded-full animate-pulse bg-gray-200 dark:bg-gray-800': isLoading()
+            }"
           >
-            {{ competitor.team?.shortDisplayName }}
+            {{ competitor.team?.shortDisplayName ?? "&nbsp;" }}
             <span
               class="ml-0.5 text-gray-400 dark:text-gray-600 font-normal hidden sm:inline"
               >{{ competitor.team?.name }}</span

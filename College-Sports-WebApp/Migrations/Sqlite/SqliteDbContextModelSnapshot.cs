@@ -16,6 +16,24 @@ namespace College_Sports_WebApp.Migrations.Sqlite
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
+            modelBuilder.Entity("College_Sports_Domain.Models.ConferencesFetch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FetchedDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JsonResponse")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConferencesFetches");
+                });
+
             modelBuilder.Entity("College_Sports_Domain.Models.ScoreboardFetch", b =>
                 {
                     b.Property<int>("Id")

@@ -2,7 +2,7 @@
 /* eslint-disable */
 export interface ProgramCategory {
   artworkUrl?: string | null;
-  id?: number;
+  id?: string | null;
   name?: string | null;
   sportId?: string | null;
   type?: string | null;

@@ -98,4 +98,17 @@ export class Utility {
 
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(userAgent);
   }
+
+  public static readonly p5ConferenceIds = [
+    // Big 12
+    "s:40~l:41~g:8",
+    // Big Ten
+    "s:40~l:41~g:7",
+    // ACC
+    "s:40~l:41~g:2",
+    // Pac-12
+    "s:40~l:41~g:21",
+    // SEC
+    "s:40~l:41~g:23"
+  ]
 }

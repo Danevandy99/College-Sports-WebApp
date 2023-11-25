@@ -1,1 +1,8 @@
-<h4 class="text-xs text-gray-400">{{ overallRecordText() }}</h4>
+<h4
+  class="text-xs text-gray-400"
+  [ngClass]="{
+    'w-10 rounded-full animate-pulse bg-gray-200 dark:bg-gray-800': isLoading()
+  }"
+>
+  {{ isLoading() ? "&nbsp;" : overallRecordText() }}
+</h4>

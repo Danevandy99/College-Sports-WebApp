@@ -22,7 +22,7 @@ export class GameCardComponent {
     const game = this.game();
 
     if (!game || !game.competitions || game.competitions.length === 0) {
-      return [];
+      return [{ id: 0}, { id: 1 }];
     } else {
       return game.competitions[0].competitors ?? [];
     }

@@ -13,7 +13,7 @@ export interface Airing {
   createdOn?: string;
   end?: string;
   externalId?: string | null;
-  id?: number;
+  id?: string | null;
   images?: Array<Image> | null;
   lastModifiedBy?: string | null;
   lastModifiedOn?: string;

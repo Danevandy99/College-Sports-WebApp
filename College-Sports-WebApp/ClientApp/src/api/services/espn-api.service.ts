@@ -9,16 +9,68 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { apiEspnApiConferencesGet$Json } from '../fn/espn-api/api-espn-api-conferences-get-json';
+import { ApiEspnApiConferencesGet$Json$Params } from '../fn/espn-api/api-espn-api-conferences-get-json';
+import { apiEspnApiConferencesGet$Plain } from '../fn/espn-api/api-espn-api-conferences-get-plain';
+import { ApiEspnApiConferencesGet$Plain$Params } from '../fn/espn-api/api-espn-api-conferences-get-plain';
 import { apiEspnApiScoreboardGet$Json } from '../fn/espn-api/api-espn-api-scoreboard-get-json';
 import { ApiEspnApiScoreboardGet$Json$Params } from '../fn/espn-api/api-espn-api-scoreboard-get-json';
 import { apiEspnApiScoreboardGet$Plain } from '../fn/espn-api/api-espn-api-scoreboard-get-plain';
 import { ApiEspnApiScoreboardGet$Plain$Params } from '../fn/espn-api/api-espn-api-scoreboard-get-plain';
+import { ConferencesResult } from '../models/conferences-result';
 import { ScoreboardResult } from '../models/scoreboard-result';
 
 @Injectable({ providedIn: 'root' })
 export class EspnApiService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `apiEspnApiConferencesGet()` */
+  static readonly ApiEspnApiConferencesGetPath = '/api/ESPNApi/conferences';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiEspnApiConferencesGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEspnApiConferencesGet$Plain$Response(params?: ApiEspnApiConferencesGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<ConferencesResult>> {
+    return apiEspnApiConferencesGet$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiEspnApiConferencesGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEspnApiConferencesGet$Plain(params?: ApiEspnApiConferencesGet$Plain$Params, context?: HttpContext): Observable<ConferencesResult> {
+    return this.apiEspnApiConferencesGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ConferencesResult>): ConferencesResult => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiEspnApiConferencesGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEspnApiConferencesGet$Json$Response(params?: ApiEspnApiConferencesGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<ConferencesResult>> {
+    return apiEspnApiConferencesGet$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiEspnApiConferencesGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEspnApiConferencesGet$Json(params?: ApiEspnApiConferencesGet$Json$Params, context?: HttpContext): Observable<ConferencesResult> {
+    return this.apiEspnApiConferencesGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ConferencesResult>): ConferencesResult => r.body)
+    );
   }
 
   /** Path part for operation `apiEspnApiScoreboardGet()` */

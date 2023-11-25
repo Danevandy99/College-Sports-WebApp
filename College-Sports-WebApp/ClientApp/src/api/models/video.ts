@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Ad } from '../models/ad';
-import { Category } from '../models/category';
 import { DeviceRestrictions } from '../models/device-restrictions';
 import { Image } from '../models/image';
 import { PosterImages } from '../models/poster-images';
@@ -10,7 +9,6 @@ import { Tracking } from '../models/tracking';
 export interface Video {
   ad?: Ad;
   caption?: string | null;
-  categories?: Array<Category> | null;
   cerebroId?: string | null;
   contributingPartner?: string | null;
   contributingSystem?: string | null;

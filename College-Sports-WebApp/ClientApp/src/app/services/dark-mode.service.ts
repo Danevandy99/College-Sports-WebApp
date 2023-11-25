@@ -1,5 +1,7 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +10,14 @@ export class DarkModeService {
   private readonly DARK_MODE_KEY = 'is-dark-mode';
 
   private isDarkModeSource$ = new BehaviorSubject<boolean>(this.getStartingDarkMode());
-  public isDarkMode$ = this.isDarkModeSource$.asObservable();
+  public isDarkMode$ = this.isDarkModeSource$.asObservable()
+    .pipe(
+      tap(() => {
+        this.meta.addTag({ name: 'theme-color', content: this.isDarkModeSource$.value ? '#121212' : '#ffffff' })
+      }),
+    );
 
-  constructor() { }
+  constructor(private meta: Meta) { }
 
   public toggleDarkMode(): void {
     this.setDarkMode(!this.isDarkModeSource$.value);

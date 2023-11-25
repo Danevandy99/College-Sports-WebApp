@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Venue } from '../models/venue';
 export interface Team {
   abbreviation?: string | null;
   alternateColor?: string | null;
@@ -15,5 +14,4 @@ export interface Team {
   name?: string | null;
   shortDisplayName?: string | null;
   uid?: string | null;
-  venue?: Venue;
 }

@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using College_Sports_Domain.Models;
 using College_Sports_WebApp.Database;
 using College_Sports_WebApp.Database.Models;
@@ -25,12 +21,60 @@ namespace College_Sports_WebApp.Controllers
             _espnApiService = espnApiService;
         }
 
+        [HttpGet("conferences")]
+        public async Task<ActionResult<ConferencesResult>> GetConferences()
+        {
+            var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+
+            var storedConferencesFetch = await _context.ConferencesFetches
+                .AsNoTracking()
+                .OrderByDescending(x => x.FetchedDateTime)
+                .FirstOrDefaultAsync(x => x.FetchedDateTime >= oneWeekAgo);
+
+            if (storedConferencesFetch is not null)
+            {
+                Console.WriteLine("Found stored conferences result");
+
+                var result = JsonSerializer.Deserialize<ConferencesResult>(storedConferencesFetch.JsonResponse);
+
+                if (result is null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Unable to deserialize stored conferences result");
+                }
+
+                return Ok(result);
+            }
+            else
+            {
+                Console.WriteLine("Fetching new conferences result");
+
+                var newConferencesResult = await _espnApiService.FetchConferences();
+
+                if (newConferencesResult is null)
+                {
+                    return NotFound("Unable to fetch conferences result");
+                }
+
+                var newConferencesFetch = new ConferencesFetch
+                {
+                    JsonResponse = JsonSerializer.Serialize(newConferencesResult),
+                };
+
+                await _context.ConferencesFetches.ExecuteDeleteAsync();
+
+                _context.ConferencesFetches.Add(newConferencesFetch);
+                await _context.SaveChangesAsync();
+
+                return newConferencesResult;
+            }
+        }
+
         [HttpGet("scoreboard")]
         public async Task<ActionResult<ScoreboardResult>> GetScoreboard([FromQuery] DateOnly? filterDate = null)
         {
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
-            var tenSecondsAgo = DateTime.UtcNow.AddSeconds(-10);
+            var tenSecondsAgo = DateTime.UtcNow.AddSeconds(-600);
 
             var storedScoreboardFetch = await _context.ScoreboardFetches
                 .AsNoTracking()

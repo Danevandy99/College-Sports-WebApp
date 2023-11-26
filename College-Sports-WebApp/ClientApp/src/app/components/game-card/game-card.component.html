@@ -10,12 +10,12 @@
   <div class="grid grid-flow-col grid-rows-5 gap-y-1">
     <!-- This just forces the two teams to line up with their score lines -->
     <div class="flex col-start-1 min-h-[16px]"></div>
-    @for (competitor of competitors(); track competitor.id;) {
+    @for (competitor of competitors(); track competitor.id; let competitorIndex = $index) {
     <div
       class="flex flex-row gap-x-2 items-center col-start-1 row-span-2"
       [ngClass]="{
         'opacity-50':
-          !(competitorWinnerIndex() === $index) &&
+          !isWinner(competitor) &&
           Utility.isGameFinished(game())
       }"
     >
@@ -77,8 +77,8 @@
         >
           {{ header }}
         </h1>
-        } @for (competitor of competitors(); track competitor.id) {
-        @for (lineScore of competitor.linescores; track $index) {
+        } @for (competitor of competitors(); track competitor.id; let competitorIndex = $index) {
+        @for (lineScore of competitor.linescores; track lineScoreIndex; let lineScoreIndex = $index) {
         <h1
           class="font-normal text-gray-400 dark:text-gray-600 mx-2 text-center flex items-center justify-center row-span-2"
         >
@@ -90,12 +90,12 @@
           class="font-semibold mx-2 text-center flex items-center justify-center row-span-2 relative dark:text-white"
           [ngClass]="{
             'opacity-50':
-              !(competitorWinnerIndex() === $index) &&
+              !isWinner(competitor) &&
               Utility.isGameFinished(game())
           }"
         >
           {{ competitor.score }}
-          @if (competitorWinnerIndex() === $index &&
+          @if (isWinner(competitor) &&
           !Utility.isGameLive(game())) {
           <span class="text-xs absolute right-0 translate-x-full pl-1 dark:text-white"
             >&#9664;</span

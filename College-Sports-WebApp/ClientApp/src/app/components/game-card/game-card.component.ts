@@ -67,17 +67,17 @@ export class GameCardComponent {
     return [...headers, 'T'];
   })
 
-  protected competitorWinnerIndex = computed(() => {
+  protected isWinner(competitor: Competitor): boolean {
     const game = this.game();
 
     if (!game) {
-      return -1;
+      return false;
     }
 
     const competitors = this.competitors();
 
     if (competitors.length !== 2) {
-      return -1;
+      return false;
     }
 
     const winner = competitors.sort((a, b) => {
@@ -85,9 +85,9 @@ export class GameCardComponent {
     })[0];
 
     if (!winner) {
-      return -1;
+      return false;
     }
 
-    return competitors.indexOf(winner);
-  });
+    return winner.team?.id === competitor.team?.id;
+  }
 }

@@ -14,11 +14,13 @@ namespace College_Sports_WebApp.Controllers
     {
         private readonly BaseDbContext _context;
         private readonly ESPNApiService _espnApiService;
+        private readonly IWebHostEnvironment _environment;
 
-        public ESPNApiController(BaseDbContext context, ESPNApiService espnApiService)
+        public ESPNApiController(BaseDbContext context, ESPNApiService espnApiService, IWebHostEnvironment environment)
         {
             _context = context;
             _espnApiService = espnApiService;
+            _environment = environment;
         }
 
         [HttpGet("conferences")]
@@ -74,7 +76,8 @@ namespace College_Sports_WebApp.Controllers
         {
             filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
 
-            var tenSecondsAgo = DateTime.UtcNow.AddSeconds(-600);
+            var seconds = _environment.IsDevelopment() ? -600 : -10;
+            var tenSecondsAgo = DateTime.UtcNow.AddSeconds(seconds);
 
             var storedScoreboardFetch = await _context.ScoreboardFetches
                 .AsNoTracking()

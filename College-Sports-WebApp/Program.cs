@@ -53,6 +53,8 @@ builder.Services.AddHttpClient<ESPNApiService>(client =>
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks();
+
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<BaseDbContext, SqliteDbContext>();
@@ -89,6 +91,8 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapHealthChecks("/health");
 
 app.MapFallbackToFile("index.html");
 

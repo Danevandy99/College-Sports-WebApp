@@ -8,6 +8,7 @@ const PROXY_CONFIG = [
     context: [
       "/api",
       "/swagger",
+      "/health",
    ],
     target: target,
     secure: !!env.ASPNETCORE_HTTPS_PORT,

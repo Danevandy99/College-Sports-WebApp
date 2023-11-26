@@ -67,6 +67,7 @@ export class WatchButtonComponent {
       case "SECN":
       case "SECN+":
       case "PAC12":
+      case "LHN":
         const airing = game.competitions?.at(0)?.airings?.at(0);
 
         if (!airing) {
@@ -116,6 +117,8 @@ export class WatchButtonComponent {
         return "bg-[#004b8d] text-[#ffd046] hover:text-[#ffd046]";
       case "PAC12":
         return "bg-[#004b91] text-[#fff] hover:text-[#fff]";
+      case "LHN":
+        return "bg-[#bf5700] text-white hover:text-white"
       default:
         return "bg-purple-500 text-white";
     }

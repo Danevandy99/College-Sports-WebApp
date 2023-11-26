@@ -1,0 +1,8 @@
+<select [ngModel]="selectedOption()" (ngModelChange)="selectedOption.set($event)" class="h-full bg-gray-100 cursor-pointer border-r-8 border-r-transparent text-gray-900 text-xs rounded-lg focus:ring-gray-500 p-2.5 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-[#fff] dark:focus:ring-gray-500">
+  @for (option of options; track $index) {
+    <option [value]="option">{{ formatOption(option) }}</option>
+  }
+  @empty {
+    <option [value]="selectedOption()">Today</option>
+  }
+</select>

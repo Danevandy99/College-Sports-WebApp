@@ -35,11 +35,13 @@ export class AppComponent {
     const allGames = this.scoreboardResult()?.events ?? [];
     const selectedConference = this.selectedConference();
 
+    console.log(selectedConference)
+
     switch (selectedConference) {
       case "Top25":
         return allGames.filter(game => game.competitions?.[0].competitors?.some(competitor => (competitor.curatedRank?.current ?? 99) <= 25));
-      case "Power5":
-        return allGames.filter(game => game.competitions?.[0].competitors?.some(competitor => Utility.p5ConferenceIds.map(x => x.split(":").at(-1)).includes(competitor.team?.conferenceId ?? "")));
+      case "Power6":
+        return allGames.filter(game => game.competitions?.[0].competitors?.some(competitor => Utility.p6ConferenceIds.map(x => x.split(":").at(-1)).includes(competitor.team?.conferenceId ?? "")));
       case "Televised":
         return allGames.filter(game => game.competitions?.[0].broadcasts && game.competitions[0].broadcasts.length > 0);
       // NCAA Division 1

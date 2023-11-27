@@ -28,7 +28,7 @@ export class BasketballConferencesDropdownComponent {
     // Overall
     const top25: Conference = { uid: "Top25", name: "Top 25", shortName: "Top 25" };
 
-    const power5: Conference = { uid: "Power5", name: "Power 5", shortName: "Power 5" };
+    const power5: Conference = { uid: "Power6", name: "Power 6", shortName: "Power 6" };
 
     const televised: Conference = { uid: "Televised", name: "Televised", shortName: "Televised" };
 
@@ -46,7 +46,7 @@ export class BasketballConferencesDropdownComponent {
     }
 
     // P5
-    const p5Conferences = allConferences.filter(conference => !!conference.uid && Utility.p5ConferenceIds.includes(conference.uid));
+    const p5Conferences = allConferences.filter(conference => !!conference.uid && Utility.p6ConferenceIds.includes(conference.uid));
 
     // Sort by name
     p5Conferences.sort((a, b) => {
@@ -57,7 +57,7 @@ export class BasketballConferencesDropdownComponent {
     });
 
     const p5ConferencesGroup = {
-      name: "Power 5",
+      name: "Power 6",
       conferences: p5Conferences,
     }
 

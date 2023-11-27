@@ -99,7 +99,7 @@ export class Utility {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(userAgent);
   }
 
-  public static readonly p5ConferenceIds = [
+  public static readonly p6ConferenceIds = [
     // Big 12
     "s:40~l:41~g:8",
     // Big Ten
@@ -109,6 +109,8 @@ export class Utility {
     // Pac-12
     "s:40~l:41~g:21",
     // SEC
-    "s:40~l:41~g:23"
+    "s:40~l:41~g:23",
+    // Big East
+    "s:40~l:41~g:4",
   ]
 }

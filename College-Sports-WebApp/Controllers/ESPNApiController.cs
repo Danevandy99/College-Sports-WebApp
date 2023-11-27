@@ -72,9 +72,9 @@ namespace College_Sports_WebApp.Controllers
         }
 
         [HttpGet("scoreboard")]
-        public async Task<ActionResult<ScoreboardResult>> GetScoreboard([FromQuery] DateOnly? filterDate = null)
+        public async Task<ActionResult<ScoreboardResult>> GetScoreboard([FromQuery] DateTime? filterDate = null)
         {
-            filterDate ??= DateOnly.FromDateTime(DateTime.UtcNow);
+            var filterDateOnly = DateOnly.FromDateTime(filterDate ?? DateTime.UtcNow);            
 
             var seconds = _environment.IsDevelopment() ? -600 : -10;
             var tenSecondsAgo = DateTime.UtcNow.AddSeconds(seconds);
@@ -82,7 +82,7 @@ namespace College_Sports_WebApp.Controllers
             var storedScoreboardFetch = await _context.ScoreboardFetches
                 .AsNoTracking()
                 .OrderByDescending(x => x.FetchedDateTime)
-                .FirstOrDefaultAsync(x => x.FilterDate == filterDate.Value && x.FetchedDateTime >= tenSecondsAgo);
+                .FirstOrDefaultAsync(x => x.FilterDate == filterDateOnly && x.FetchedDateTime >= tenSecondsAgo);
 
             if (storedScoreboardFetch is not null)
             {
@@ -101,7 +101,7 @@ namespace College_Sports_WebApp.Controllers
             {
                 Console.WriteLine("Fetching new scoreboard result");
 
-                var newScoreboardResult = await _espnApiService.FetchScoreboard(filterDate);
+                var newScoreboardResult = await _espnApiService.FetchScoreboard(filterDateOnly);
 
                 if (newScoreboardResult is null)
                 {
@@ -110,7 +110,7 @@ namespace College_Sports_WebApp.Controllers
 
                 var newScoreboardFetch = new ScoreboardFetch
                 {
-                    FilterDate = filterDate.Value,
+                    FilterDate = filterDateOnly,
                     JsonResponse = JsonSerializer.Serialize(newScoreboardResult),
                 };
 
@@ -118,7 +118,7 @@ namespace College_Sports_WebApp.Controllers
                 await _context.SaveChangesAsync();
 
                 // Remove the scoreboard fetches with a filter date that matches the current filter date
-                await _context.ScoreboardFetches.Where(x => x.FilterDate == filterDate).ExecuteDeleteAsync();
+                await _context.ScoreboardFetches.Where(x => x.FilterDate == filterDateOnly).ExecuteDeleteAsync();
 
                 return newScoreboardResult;
             }

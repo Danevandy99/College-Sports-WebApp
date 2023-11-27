@@ -112,5 +112,15 @@ export class Utility {
     "s:40~l:41~g:23",
     // Big East
     "s:40~l:41~g:4",
-  ]
+  ];
+
+  public static getDefaultDate(): string {
+    const today = new Date();
+
+    const date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+
+    const result = date.toISOString();
+
+    return result;
+  }
 }

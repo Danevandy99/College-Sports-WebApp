@@ -1,6 +1,7 @@
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Component, Input, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Utility } from 'src/utility';
 
 @Component({
   selector: 'app-date-dropdown',
@@ -11,7 +12,7 @@ export class DateDropdownComponent {
 
   protected options: string[] = [];
 
-  protected selectedOption = signal<string | null>(this.getDefaultDate());
+  protected selectedOption = signal<string | null>(Utility.getDefaultDate());
   @Input('selectedOption') set _selectedOption(value: string | null) {
     this.selectedOption.set(value);
   }
@@ -23,14 +24,14 @@ export class DateDropdownComponent {
 
   private buildOptions() {
     // Get the current date
-    const today = new Date();
+    const today = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
     // Get the date from 6 months ago
-    const sixMonthsAgo = new Date();
+    const sixMonthsAgo = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
     sixMonthsAgo.setMonth(today.getMonth() - 6);
 
     // Get the date from 6 months from now
-    const sixMonthsFromNow = new Date();
+    const sixMonthsFromNow = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
     sixMonthsFromNow.setMonth(today.getMonth() + 6);
 
     // Create an array of dates between the two dates
@@ -48,23 +49,13 @@ export class DateDropdownComponent {
     }
   }
 
-  private getDefaultDate(): string {
-    const today = new Date();
 
-    const date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
-
-    const result = date.toISOString();
-
-    console.log(result);
-
-    return result;
-  }
 
   protected formatOption(option: string) {
     const date = new Date(option);
 
     // Check if the date is today
-    const today = new Date();
+    const today = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
 
     if (date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate()) {
       return `${date.toLocaleDateString()} (Today)`;

@@ -15,15 +15,15 @@ import { DarkModeService } from './services/dark-mode.service';
 export class AppComponent {
   protected Utility = Utility;
 
-  protected date = signal(new Date());
+  protected dateString = signal(Utility.getDefaultDate());
   protected selectedConference = signal<string>("s:40~l:41~g:50");
   protected isLoading = signal(true);
 
-  protected scoreboardResult = toSignal(toObservable(this.date).pipe(
-    switchMap(date => {
+  protected scoreboardResult = toSignal(toObservable(this.dateString).pipe(
+    switchMap(dateString => {
       this.isLoading.set(true);
 
-      const data: ApiEspnApiScoreboardGet$Json$Params = { filterDate: date.toDateString() };
+      const data: ApiEspnApiScoreboardGet$Json$Params = { filterDate: dateString };
 
       return this.espnApiService.apiEspnApiScoreboardGet$Json(data)
       //return of({} as ScoreboardResult);
@@ -34,8 +34,6 @@ export class AppComponent {
   protected filteredGames = computed(() => {
     const allGames = this.scoreboardResult()?.events ?? [];
     const selectedConference = this.selectedConference();
-
-    console.log(selectedConference)
 
     switch (selectedConference) {
       case "Top25":
@@ -66,4 +64,9 @@ export class AppComponent {
     private espnApiService: EspnApiService,
     protected darkModeService: DarkModeService,
     private basketballConferencesService: BasketballConferencesService) { }
+
+  protected setDate(dateString: string | null): void {
+    const value = dateString ? dateString : Utility.getDefaultDate();
+    this.dateString.set(value);
+  }
 }

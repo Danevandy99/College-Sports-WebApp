@@ -24,14 +24,14 @@ export class DateDropdownComponent {
 
   private buildOptions() {
     // Get the current date
-    const today = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+    const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
     // Get the date from 6 months ago
-    const sixMonthsAgo = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+    const sixMonthsAgo = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     sixMonthsAgo.setMonth(today.getMonth() - 6);
 
     // Get the date from 6 months from now
-    const sixMonthsFromNow = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+    const sixMonthsFromNow = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     sixMonthsFromNow.setMonth(today.getMonth() + 6);
 
     // Create an array of dates between the two dates
@@ -55,7 +55,7 @@ export class DateDropdownComponent {
     const date = new Date(option);
 
     // Check if the date is today
-    const today = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+    const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
     if (date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate()) {
       return `${date.toLocaleDateString()} (Today)`;

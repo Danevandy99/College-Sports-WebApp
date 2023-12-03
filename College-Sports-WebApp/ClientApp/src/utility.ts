@@ -117,7 +117,7 @@ export class Utility {
   public static getDefaultDate(): string {
     const today = new Date();
 
-    const date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
     const result = date.toISOString();
 

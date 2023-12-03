@@ -1,7 +1,7 @@
 import { BasketballConferencesService } from './services/basketball-conferences.service';
 import { EspnApiService } from './../api/services/espn-api.service';
 import { Component, computed, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap, tap } from 'rxjs';
 import { ApiEspnApiScoreboardGet$Json$Params } from 'src/api/fn/espn-api/api-espn-api-scoreboard-get-json';
 import { Competitor, Event, ScoreboardResult, Team } from 'src/api/models';
@@ -13,10 +13,12 @@ import { DarkModeService } from './services/dark-mode.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  private readonly SELECTED_CONFERENCE_KEY = "selectedConference";
+
   protected Utility = Utility;
 
   protected dateString = signal(Utility.getDefaultDate());
-  protected selectedConference = signal<string>("s:40~l:41~g:50");
+  protected selectedConference = signal<string>(this.getDefaultSelectedConferenceFromLocalStorage());
   protected isLoading = signal(true);
 
   protected scoreboardResult = toSignal(toObservable(this.dateString).pipe(
@@ -63,10 +65,25 @@ export class AppComponent {
   constructor(
     private espnApiService: EspnApiService,
     protected darkModeService: DarkModeService,
-    private basketballConferencesService: BasketballConferencesService) { }
+    private basketballConferencesService: BasketballConferencesService) {
+    toObservable(this.selectedConference)
+      .pipe(takeUntilDestroyed())
+      .subscribe(selectedConference => {
+        localStorage.setItem(this.SELECTED_CONFERENCE_KEY, selectedConference);
+      });
+  }
 
   protected setDate(dateString: string | null): void {
     const value = dateString ? dateString : Utility.getDefaultDate();
     this.dateString.set(value);
+  }
+
+  private getDefaultSelectedConferenceFromLocalStorage(): string {
+    const selectedConference = localStorage.getItem(this.SELECTED_CONFERENCE_KEY);
+    if (selectedConference) {
+      return selectedConference;
+    } else {
+      return "s:40~l:41~g:50";
+    }
   }
 }

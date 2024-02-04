@@ -1,12 +1,10 @@
 import { BasketballConferencesService } from './services/basketball-conferences.service';
-import { EspnApiService } from './../api/services/espn-api.service';
 import { Component, computed, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { of, switchMap, tap } from 'rxjs';
-import { ApiEspnApiScoreboardGet$Json$Params } from 'src/api/fn/espn-api/api-espn-api-scoreboard-get-json';
-import { Competitor, Event, ScoreboardResult, Team } from 'src/api/models';
 import { Utility } from 'src/utility';
 import { DarkModeService } from './services/dark-mode.service';
+import { EspnApiService } from './services/espn-api.service';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +23,7 @@ export class AppComponent {
     switchMap(dateString => {
       this.isLoading.set(true);
 
-      const data: ApiEspnApiScoreboardGet$Json$Params = { filterDate: dateString };
-
-      return this.espnApiService.apiEspnApiScoreboardGet$Json(data)
-      //return of({} as ScoreboardResult);
+      return this.espnApiService.getScoreboard(new Date(dateString));
     }),
     tap(() => this.isLoading.set(false))
   ));

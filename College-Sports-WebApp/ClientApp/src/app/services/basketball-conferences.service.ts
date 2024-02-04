@@ -1,14 +1,13 @@
-import { EspnApiService } from './../../api/services/espn-api.service';
 import { Injectable } from '@angular/core';
 import { map, shareReplay } from 'rxjs';
-import { Conference } from 'src/api/models';
+import { EspnApiService } from './espn-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketballConferencesService {
 
-  public conferences$ = this.espnApiService.apiEspnApiConferencesGet$Json()
+  public conferences$ = this.espnApiService.getConferences()
     .pipe(
       shareReplay(1),
       map(result => result.conferences),

@@ -1,4 +1,4 @@
-<select [ngModel]="selectedConference()" (ngModelChange)="selectedConference.set($event)" class="h-full bg-gray-100 cursor-pointer border-r-8 border-r-transparent text-gray-900 text-xs rounded-lg focus:ring-gray-500 p-2.5 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-[#fff] dark:focus:ring-gray-500">
+<select [ngModel]="selectedConference()" (ngModelChange)="selectedConferenceChange.emit($event)" class="h-full bg-gray-100 cursor-pointer border-r-8 border-r-transparent text-gray-900 text-xs rounded-lg focus:ring-gray-500 p-2.5 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-[#fff] dark:focus:ring-gray-500">
   @for (group of groupsWithConferences(); track $index) {
     <optgroup label="{{ group.name }}">
       @for (conference of group.conferences; track conference.uid) {

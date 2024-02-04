@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, computed, input, signal } from '@angular/core';
-import { Event } from 'src/api/models';
+import { Event } from '../../models/event';
 import { Utility } from 'src/utility';
 
 @Component({
@@ -9,7 +9,7 @@ import { Utility } from 'src/utility';
 })
 export class TimeOrTimeLeftSectionComponent implements OnInit {
 
-  protected game = input.required<Event>();
+  public game = input<Event | null>(null);
 
   protected isGameLive = computed(() => {
     const game = this.game();

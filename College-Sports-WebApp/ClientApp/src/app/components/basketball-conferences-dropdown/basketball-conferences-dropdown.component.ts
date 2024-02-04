@@ -1,8 +1,7 @@
-import { Component, Input, Output, Signal, computed, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output, Signal, computed, input, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Conference } from 'src/app/models/conference';
 import { BasketballConferencesService } from 'src/app/services/basketball-conferences.service';
-import { Conference } from 'src/api/models';
 import { Utility } from 'src/utility';
 
 @Component({
@@ -12,9 +11,9 @@ import { Utility } from 'src/utility';
 })
 export class BasketballConferencesDropdownComponent {
 
-  protected selectedConference = input<string>("s:40~l:41~g:50");
+  public selectedConference = input<string>("s:40~l:41~g:50");
 
-  @Output() selectedConferenceChange = toObservable(this.selectedConference);
+  @Output() selectedConferenceChange = new EventEmitter<string>();
 
   protected allConferences = toSignal(this.basketballConferencesService.conferences$);
 

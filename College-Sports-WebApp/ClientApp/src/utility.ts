@@ -1,4 +1,4 @@
-import { Event } from "./api/models";
+import { Event } from "./app/models/event";
 
 export class Utility {
   public static isGameFinished(game: Event | null): boolean {

@@ -1,7 +1,7 @@
 import { Utility } from './../../../utility';
-import { Component, Input, computed, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Competitor, Event } from 'src/api/models';
+import { Component, computed, input } from '@angular/core';
+import { Competitor } from '../../models/competitor';
+import { Event } from '../../models/event';
 
 @Component({
   selector: 'app-game-card',
@@ -11,7 +11,7 @@ import { Competitor, Event } from 'src/api/models';
 export class GameCardComponent {
   protected Utility = Utility;
 
-  protected game = input.required<Event>();
+  public game = input<Event | null>(null);
 
   protected isLoading = computed(() => !this.game());
 

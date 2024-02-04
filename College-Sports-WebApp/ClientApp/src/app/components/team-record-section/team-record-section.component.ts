@@ -1,6 +1,6 @@
 import { Component, Input, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Competitor } from 'src/api/models';
+import { Competitor } from '../../models/competitor';
 import { input } from '@angular/core';
 
 @Component({
@@ -12,7 +12,7 @@ import { input } from '@angular/core';
 })
 export class TeamRecordSectionComponent {
 
-  protected competitor = input.required<Competitor>();
+  public competitor = input.required<Competitor>();
 
   protected isLoading = computed(() => !(this.competitor()?.team));
 

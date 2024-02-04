@@ -1,4 +1,4 @@
-import { Component, Input, Output, Signal, computed, signal } from '@angular/core';
+import { Component, Input, Output, Signal, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BasketballConferencesService } from 'src/app/services/basketball-conferences.service';
@@ -12,11 +12,7 @@ import { Utility } from 'src/utility';
 })
 export class BasketballConferencesDropdownComponent {
 
-  protected selectedConference = signal<string>("s:40~l:41~g:50");
-
-  @Input('selectedConference') set _selectedConference(value: string) {
-    this.selectedConference.set(value);
-  }
+  protected selectedConference = input<string>("s:40~l:41~g:50");
 
   @Output() selectedConferenceChange = toObservable(this.selectedConference);
 

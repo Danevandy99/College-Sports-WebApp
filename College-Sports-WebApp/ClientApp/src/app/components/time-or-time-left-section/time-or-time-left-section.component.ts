@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, computed, signal } from '@angular/core';
+import { Component, Input, OnInit, computed, input, signal } from '@angular/core';
 import { Event } from 'src/api/models';
 import { Utility } from 'src/utility';
 
@@ -9,10 +9,7 @@ import { Utility } from 'src/utility';
 })
 export class TimeOrTimeLeftSectionComponent implements OnInit {
 
-  protected game = signal<Event | null>(null);
-  @Input('game') set _game(value: Event | null) {
-    this.game.set(value);
-  };
+  protected game = input.required<Event>();
 
   protected isGameLive = computed(() => {
     const game = this.game();

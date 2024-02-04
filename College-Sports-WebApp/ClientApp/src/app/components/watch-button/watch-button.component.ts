@@ -1,4 +1,4 @@
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, Input, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Event } from 'src/api/models';
 import { Utility } from 'src/utility';
@@ -12,10 +12,7 @@ import { Utility } from 'src/utility';
 })
 export class WatchButtonComponent {
 
-  protected game = signal<Event | null>(null);
-  @Input('game') set _game(value: Event | null) {
-    this.game.set(value);
-  }
+  protected game = input.required<Event>();
 
   protected isLoading = computed(() => !this.game());
 

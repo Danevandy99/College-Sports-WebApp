@@ -1,5 +1,5 @@
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Component, Input, Output, signal } from '@angular/core';
+import { Component, Input, Output, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Utility } from 'src/utility';
 
@@ -12,10 +12,8 @@ export class DateDropdownComponent {
 
   protected options: string[] = [];
 
-  protected selectedOption = signal<string | null>(Utility.getDefaultDate());
-  @Input('selectedOption') set _selectedOption(value: string | null) {
-    this.selectedOption.set(value);
-  }
+  protected selectedOption = input<string | null>(Utility.getDefaultDate());
+
   @Output() protected selectedOptionChange = toObservable(this.selectedOption);
 
   constructor() {

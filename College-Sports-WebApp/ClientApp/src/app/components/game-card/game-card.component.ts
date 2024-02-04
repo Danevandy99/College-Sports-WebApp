@@ -1,5 +1,5 @@
 import { Utility } from './../../../utility';
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, Input, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Competitor, Event } from 'src/api/models';
 
@@ -11,10 +11,7 @@ import { Competitor, Event } from 'src/api/models';
 export class GameCardComponent {
   protected Utility = Utility;
 
-  protected game = signal<Event | null>(null);
-  @Input('game') set _game(value: Event | null) {
-    this.game.set(value);
-  }
+  protected game = input.required<Event>();
 
   protected isLoading = computed(() => !this.game());
 

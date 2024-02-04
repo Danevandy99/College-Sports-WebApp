@@ -19,6 +19,10 @@ export class AppComponent {
   protected selectedConference = signal<string>(this.getDefaultSelectedConferenceFromLocalStorage());
   protected isLoading = signal(true);
 
+  protected selectedConferenceName$ = toObservable(this.selectedConference).pipe(
+    switchMap(selectedConference => this.basketballConferencesService.getConferenceName(selectedConference))
+  );
+
   protected scoreboardResult = toSignal(toObservable(this.dateString).pipe(
     switchMap(dateString => {
       this.isLoading.set(true);

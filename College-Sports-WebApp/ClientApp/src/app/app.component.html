@@ -1,9 +1,11 @@
 <div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
-  <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
+  <div class="min-h-screen flex flex-col-reverse lg:flex-col bg-gray-100 dark:bg-gray-950">
     <div
-      class="h-12 w-full sticky top-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50"
+      class="h-12 w-full sticky lg:top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50"
     >
-      <div class="container flex gap-x-2">
+      <div class="container flex gap-x-2 items-center">
+        <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
+
         <app-date-dropdown
           [selectedOption]="dateString()"
           (selectedOptionChange)="setDate($event)"
@@ -39,7 +41,7 @@
       <div
         class="col-span-full py-10 text-center rounded-lg bg-[#fff] dark:bg-gray-900"
       >
-        <p class="text-gray-500 dark:text-gray-400 text-lg">No games</p>
+        <p class="text-gray-500 dark:text-gray-400 text-lg">No games in {{ selectedConferenceName$ | async }}</p>
       </div>
       } }
     </div>

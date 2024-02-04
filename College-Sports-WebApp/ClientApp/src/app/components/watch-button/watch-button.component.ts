@@ -98,7 +98,7 @@ export class WatchButtonComponent {
       case "BIG12|ESPN+":
         return "bg-yellow-400 text-black dark:bg-yellow-500 dark:text-yellow-900";
       case "ESPNU":
-        return "bg-black text-red-500";
+        return "bg-black text-red-500 hover:text-red-500";
       case "FOX":
       case "FS1":
       case "FS2":

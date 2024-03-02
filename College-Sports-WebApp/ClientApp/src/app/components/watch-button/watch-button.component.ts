@@ -57,6 +57,8 @@ export class WatchButtonComponent {
     switch (channelName) {
       case "ESPN":
       case "ESPN2":
+      case "ESPN3":
+      case "ESPNNEWS":
       case "ESPN+":
       case "BIG12|ESPN+":
       case "ACCN":
@@ -65,6 +67,7 @@ export class WatchButtonComponent {
       case "SECN+":
       case "PAC12":
       case "LHN":
+      case "ABC":
         const airing = game.competitions?.at(0)?.airings?.at(0);
 
         if (!airing) {
@@ -76,6 +79,7 @@ export class WatchButtonComponent {
         } else {
           return airing.webGameLink;
         }
+      case "CBS":
       case "CBSSN":
         return "https://www.cbssports.com/watch/college-basketball";
       case "FS1":
@@ -84,15 +88,19 @@ export class WatchButtonComponent {
         return "https://www.foxsports.com/live/fs2";
       case "BTN":
         return "https://www.foxsports.com/live/btn";
+      case "CW NETWORK":
+        return "https://www.cwtv.com/";
       default:
         return 'https://www.espn.com/watch/';
     }
   });
 
-  protected getChannelColorClasses(channelName?: string | null): string {
-    switch (channelName) {
+   protected channelColorClasses = computed(() => {
+    switch (this.channelName()) {
       case "ESPN":
       case "ESPN2":
+      case "ESPN3":
+      case "ESPNNEWS":
         return "bg-red-500 text-white dark:bg-red-600 dark:text-red-900 ";
       case "ESPN+":
       case "BIG12|ESPN+":
@@ -107,6 +115,7 @@ export class WatchButtonComponent {
         return "bg-blue-900 text-white";
       case "BTN":
         return "bg-sky-600 text-white";
+      case "CBS":
       case "CBSSN":
         return "bg-blue-700 text-white";
       case "SECN":
@@ -115,9 +124,13 @@ export class WatchButtonComponent {
       case "PAC12":
         return "bg-[#004b91] text-[#fff] hover:text-[#fff]";
       case "LHN":
-        return "bg-[#bf5700] text-white hover:text-white"
+        return "bg-[#bf5700] text-white hover:text-white";
+      case "ABC":
+        return "bg-[#000] text-[#fff] dark:bg-[#fff] dark:text-[#000] dark:hover:text-[#000] dark:hover:bg-[#fff] hover:text-[#fff] hover:bg-[#000]";
+      case "CW NETWORK":
+        return "bg-[#ff4500] text-[#fff] hover:text-[#fff] dark:bg-[#de3d01] dark:text-[#000] dark:hover:text-[#000]";
       default:
         return "bg-purple-500 text-white";
     }
-  }
+  });
 }

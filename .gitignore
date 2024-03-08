@@ -232,4 +232,4 @@ _Pvt_Extensions
 
 College-Sports-WebApp/appsettings.Development.json
 
-**/*/.angular/**/*
+College-Sports-WebApp/ClientApp/.angular/

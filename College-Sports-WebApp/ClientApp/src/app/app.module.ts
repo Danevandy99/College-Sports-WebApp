@@ -14,45 +14,47 @@ import { GameCardComponent } from './components/game-card/game-card.component';
 import { BasketballConferencesDropdownComponent } from './components/basketball-conferences-dropdown/basketball-conferences-dropdown.component';
 import { DateDropdownComponent } from './components/date-dropdown/date-dropdown.component';
 import { provideQueryClientOptions } from '@ngneat/query';
+import { OrderByPipe } from "./pipes/order-by.pipe";
 
 const routes: Routes = [
 
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TimeOrTimeLeftSectionComponent,
-    GameCardComponent,
-    BasketballConferencesDropdownComponent,
-    DateDropdownComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot(routes),
-    TeamRecordSectionComponent,
-    WatchButtonComponent,
-    NgOptimizedImage,
-  ],
-  providers: [
-    { provide: APP_ID, useValue: 'ng-cli-universal' },
-    isDevMode() ? provideQueryDevTools({
-      initialIsOpen: true
-    }) : [],
-    provideQueryClientOptions({
-      defaultOptions: {
-        queries: {
-          staleTime: Infinity,
-          refetchOnWindowFocus: true,
-          refetchOnReconnect: true,
-          refetchOnMount: true,
-        },
-      },
-    }),
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        TimeOrTimeLeftSectionComponent,
+        GameCardComponent,
+        BasketballConferencesDropdownComponent,
+        DateDropdownComponent
+    ],
+    providers: [
+        { provide: APP_ID, useValue: 'ng-cli-universal' },
+        isDevMode() ? provideQueryDevTools({
+            initialIsOpen: true
+        }) : [],
+        provideQueryClientOptions({
+            defaultOptions: {
+                queries: {
+                    staleTime: Infinity,
+                    refetchOnWindowFocus: true,
+                    refetchOnReconnect: true,
+                    refetchOnMount: true,
+                },
+            },
+        }),
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forRoot(routes),
+        TeamRecordSectionComponent,
+        WatchButtonComponent,
+        NgOptimizedImage,
+        OrderByPipe
+    ]
 })
 export class AppModule { }
 

@@ -1,3 +1,4 @@
+import { injectQuery, injectQueryClient } from '@ngneat/query';
 import { BasketballConferencesService } from './services/basketball-conferences.service';
 import { Component, computed, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -13,6 +14,8 @@ import { EspnApiService } from './services/espn-api.service';
 export class AppComponent {
   private readonly SELECTED_CONFERENCE_KEY = "selectedConference";
 
+  private readonly queryClient = injectQueryClient();
+
   protected Utility = Utility;
 
   protected dateString = signal(Utility.getDefaultDate());
@@ -25,6 +28,9 @@ export class AppComponent {
   protected scoreboardResult = this.espnApiService.getScoreboard(new Date(this.dateString())).result;
 
   protected filteredGames = computed(() => {
+    // This make sure that the scoreboard gets refreshed if it's stale and we change the filter
+    this.queryClient.prefetchQuery(this.espnApiService.getScoreboardQueryOptions(new Date(this.dateString())));
+
     const result = this.scoreboardResult();
 
     if (!result.data) {

@@ -1,5 +1,6 @@
+import { provideQueryDevTools } from '@ngneat/query-devtools';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_ID, NgModule } from '@angular/core';
+import { APP_ID, NgModule, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,6 +13,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { GameCardComponent } from './components/game-card/game-card.component';
 import { BasketballConferencesDropdownComponent } from './components/basketball-conferences-dropdown/basketball-conferences-dropdown.component';
 import { DateDropdownComponent } from './components/date-dropdown/date-dropdown.component';
+import { provideQueryClientOptions } from '@ngneat/query';
 
 const routes: Routes = [
 
@@ -35,8 +37,22 @@ const routes: Routes = [
     NgOptimizedImage,
   ],
   providers: [
-    { provide: APP_ID, useValue: 'ng-cli-universal' }
+    { provide: APP_ID, useValue: 'ng-cli-universal' },
+    isDevMode() ? provideQueryDevTools({
+      initialIsOpen: true
+    }) : [],
+    provideQueryClientOptions({
+      defaultOptions: {
+        queries: {
+          staleTime: Infinity,
+          refetchOnWindowFocus: true,
+          refetchOnReconnect: true,
+          refetchOnMount: true,
+        },
+      },
+    }),
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

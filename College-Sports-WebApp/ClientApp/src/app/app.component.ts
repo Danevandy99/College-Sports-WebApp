@@ -17,23 +17,21 @@ export class AppComponent {
 
   protected dateString = signal(Utility.getDefaultDate());
   protected selectedConference = signal<string>(this.getDefaultSelectedConferenceFromLocalStorage());
-  protected isLoading = signal(true);
 
   protected selectedConferenceName$ = toObservable(this.selectedConference).pipe(
     switchMap(selectedConference => this.basketballConferencesService.getConferenceName(selectedConference))
   );
 
-  protected scoreboardResult = toSignal(toObservable(this.dateString).pipe(
-    switchMap(dateString => {
-      this.isLoading.set(true);
-
-      return this.espnApiService.getScoreboard(new Date(dateString));
-    }),
-    tap(() => this.isLoading.set(false))
-  ));
+  protected scoreboardResult = this.espnApiService.getScoreboard(new Date(this.dateString())).result;
 
   protected filteredGames = computed(() => {
-    const allGames = this.scoreboardResult()?.events ?? [];
+    const result = this.scoreboardResult();
+
+    if (!result.data) {
+      return [];
+    }
+
+    const allGames = result.data.events ?? [];
     const selectedConference = this.selectedConference();
 
     switch (selectedConference) {

@@ -1,5 +1,5 @@
 <div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
-  <div class="min-h-screen flex flex-col-reverse lg:flex-col bg-gray-100 dark:bg-gray-950">
+  <div class="min-h-screen flex flex-col-reverse lg:flex-col bg-gray-100 dark:bg-gray-950" [ngClass]="{ 'opacity-50': scoreboardResult().isLoading && scoreboardResult().data }">
     <div
       class="h-12 w-full sticky lg:top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50"
     >
@@ -19,7 +19,7 @@
 
         <button
           (click)="darkModeService.toggleDarkMode()"
-          class="bg-gray-100 dark:bg-gray-800 dark:text-white text-xs rounded-full py-1.5 px-3"
+          class="bg-gray-100 dark:bg-gray-800 dark:text-white text-xs rounded-lg py-1.5 px-3 h-9"
         >
           {{ (darkModeService.isDarkMode$ | async) ? "☀" : "☾" }}
         </button>
@@ -28,7 +28,7 @@
     <div
       class="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 container mx-auto"
     >
-      @if (isLoading()) {
+      @if (!scoreboardResult().data && scoreboardResult().isLoading) {
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>

@@ -1,4 +1,4 @@
-import { injectQuery, injectQueryClient } from '@ngneat/query';
+import { createPendingObserverResult, injectQuery, injectQueryClient } from '@ngneat/query';
 import { BasketballConferencesService } from './services/basketball-conferences.service';
 import { Component, computed, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -6,6 +6,8 @@ import { of, switchMap, tap } from 'rxjs';
 import { Utility } from 'src/utility';
 import { DarkModeService } from './services/dark-mode.service';
 import { EspnApiService } from './services/espn-api.service';
+import { computedAsync } from 'ngxtension/computed-async';
+import { ScoreboardResult } from './models/scoreboard-result';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,9 @@ export class AppComponent {
     switchMap(selectedConference => this.basketballConferencesService.getConferenceName(selectedConference))
   );
 
-  protected scoreboardResult = this.espnApiService.getScoreboard(new Date(this.dateString())).result;
+  protected scoreboardResult = computedAsync(() => this.espnApiService.getScoreboard(new Date(this.dateString())).result$, {
+    initialValue: createPendingObserverResult<ScoreboardResult>(),
+  });
 
   protected filteredGames = computed(() => {
     // This make sure that the scoreboard gets refreshed if it's stale and we change the filter

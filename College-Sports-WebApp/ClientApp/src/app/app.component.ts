@@ -1,8 +1,8 @@
 import { createPendingObserverResult, injectQuery, injectQueryClient } from '@ngneat/query';
 import { BasketballConferencesService } from './services/basketball-conferences.service';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, effect } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { of, switchMap, tap } from 'rxjs';
+import { combineLatest, of, switchMap, tap } from 'rxjs';
 import { Utility } from 'src/utility';
 import { DarkModeService } from './services/dark-mode.service';
 import { EspnApiService } from './services/espn-api.service';
@@ -77,6 +77,17 @@ export class AppComponent {
       .pipe(takeUntilDestroyed())
       .subscribe(selectedConference => {
         localStorage.setItem(this.SELECTED_CONFERENCE_KEY, selectedConference);
+      });
+
+    // When the scoreboard or selected conference changes, scroll to the top of the page
+    combineLatest([
+      toObservable(this.scoreboardResult),
+      toObservable(this.selectedConference)
+    ])
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        console.log("scrolling to top")
+        window.scrollTo(0, 0);
       });
   }
 

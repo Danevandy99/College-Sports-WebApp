@@ -40,6 +40,7 @@ const routes: Routes = [
                     refetchOnWindowFocus: true,
                     refetchOnReconnect: true,
                     refetchOnMount: true,
+                    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
                 },
             },
         }),

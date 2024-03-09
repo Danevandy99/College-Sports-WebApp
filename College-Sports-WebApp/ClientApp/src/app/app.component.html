@@ -16,7 +16,16 @@
         <p
           class="mb-0 hidden lg:inline-flex dark:text-gray-600 text-gray-400 text-sm"
         >
-            Updated on {{ scoreboardResult().dataUpdatedAt | date:'MMMM d \'at\' h:mm a' }}
+          @if (scoreboardResult().isFetching && scoreboardResult().data) {
+          <span>Updating...</span>
+          } @else if (scoreboardResult().data) {
+          <span
+            >Updated on
+            {{
+              scoreboardResult().dataUpdatedAt | date : "MMMM d 'at' h:mm a"
+            }}</span
+          >
+          }
         </p>
 
         <app-basketball-conferences-dropdown

@@ -1,9 +1,9 @@
 <div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
   <div
-    class="min-h-screen flex flex-col-reverse lg:flex-col bg-gray-100 dark:bg-gray-950"
+    class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950"
   >
     <div
-      class="h-12 w-full sticky lg:top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50"
+      class="h-12 w-full sticky top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
     >
       <div class="container flex gap-x-2 items-center">
         <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
@@ -67,5 +67,11 @@
       </div>
       } }
     </div>
+
+    <div
+      class="h-12 w-full static bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
+    >
+
+    </div>ƒ
   </div>
 </div>

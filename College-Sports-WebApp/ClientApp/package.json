@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^17.2.4",
     "@angular/platform-server": "^17.2.4",
     "@angular/router": "^17.2.4",
+    "@angular/service-worker": "^17.2.4",
     "@ngneat/query": "2.0.0-beta.11",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",

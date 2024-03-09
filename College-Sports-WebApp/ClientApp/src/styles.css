@@ -11,7 +11,7 @@ body:has(.dark) {
   @apply bg-gray-950;
 }
 
-select{
+select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -21,4 +21,15 @@ select{
   background-repeat: no-repeat;
   background-blend-mode: exclusion;
   padding-right: 24px !important;
+}
+
+button:hover,
+a:hover,
+select:hover {
+  opacity: 0.8;
+}
+
+[disabled], [disabled]:hover {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

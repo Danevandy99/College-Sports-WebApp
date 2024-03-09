@@ -1,9 +1,9 @@
 <div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
   <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
     <div
-      class="h-12 w-full sticky top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
+      class="w-full sticky top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pt-[env(safe-area-inset-top)]"
     >
-      <div class="container flex gap-x-2 items-center">
+      <div class="container flex gap-x-2 items-center py-2">
         <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
 
         <app-date-dropdown
@@ -71,9 +71,9 @@
 
   <!-- Fixed mobile footer -->
   <div
-    class="lg:hidden h-12 w-full fixed bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
+    class="lg:hidden w-full fixed bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
   >
-    <div class="container flex gap-x-2 items-center">
+    <div class="container flex gap-x-2 items-center py-2">
       <app-date-dropdown
         [selectedOption]="dateString()"
         (selectedOptionChange)="setDate($event)"

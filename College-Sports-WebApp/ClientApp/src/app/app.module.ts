@@ -15,6 +15,7 @@ import { BasketballConferencesDropdownComponent } from './components/basketball-
 import { DateDropdownComponent } from './components/date-dropdown/date-dropdown.component';
 import { provideQueryClientOptions } from '@ngneat/query';
 import { OrderByPipe } from "./pipes/order-by.pipe";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const routes: Routes = [
 
@@ -54,7 +55,13 @@ const routes: Routes = [
         TeamRecordSectionComponent,
         WatchButtonComponent,
         NgOptimizedImage,
-        OrderByPipe
+        OrderByPipe,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ]
 })
 export class AppModule { }

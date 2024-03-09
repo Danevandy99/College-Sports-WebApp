@@ -1,21 +1,18 @@
 <div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
-  <div
-    class="min-h-screen flex flex-col-reverse lg:flex-col bg-gray-100 dark:bg-gray-950"
-  >
+  <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
     <div
-      class="h-12 w-full sticky lg:top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50"
+      class="h-12 w-full sticky top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
     >
       <div class="container flex gap-x-2 items-center">
         <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
 
         <app-date-dropdown
+          class="hidden lg:block"
           [selectedOption]="dateString()"
           (selectedOptionChange)="setDate($event)"
         />
 
-        <p
-          class="mb-0 hidden lg:inline-flex dark:text-gray-600 text-gray-400 text-sm"
-        >
+        <p class="mb-0 inline-flex dark:text-gray-600 text-gray-400 text-sm">
           @if (scoreboardResult().isFetching && scoreboardResult().data) {
           <span>Updating...</span>
           } @else if (scoreboardResult().data) {
@@ -28,8 +25,11 @@
           }
         </p>
 
+        <!-- Spacer -->
+        <div class="flex-1"></div>
+
         <app-basketball-conferences-dropdown
-          class="ml-auto"
+          class="hidden lg:block"
           [selectedConference]="selectedConference()"
           (selectedConferenceChange)="selectedConference.set($event)"
         />
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div
-      class="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 container mx-auto"
+      class="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 container mx-auto mb-14 lg:mb-2"
       [ngClass]="{
         'opacity-50': scoreboardResult().isFetching && scoreboardResult().data
       }"
@@ -66,6 +66,24 @@
         </p>
       </div>
       } }
+    </div>
+  </div>
+
+  <!-- Fixed mobile footer -->
+  <div
+    class="lg:hidden h-12 w-full fixed bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
+  >
+    <div class="container flex gap-x-2 items-center">
+      <app-date-dropdown
+        [selectedOption]="dateString()"
+        (selectedOptionChange)="setDate($event)"
+      />
+
+      <app-basketball-conferences-dropdown
+        class="ml-auto"
+        [selectedConference]="selectedConference()"
+        (selectedConferenceChange)="selectedConference.set($event)"
+      />
     </div>
   </div>
 </div>

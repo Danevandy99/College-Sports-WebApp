@@ -1,6 +1,4 @@
-import { toObservable } from '@angular/core/rxjs-interop';
-import { Component, EventEmitter, Input, Output, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, model } from '@angular/core';
 import { Utility } from 'src/utility';
 
 @Component({
@@ -12,9 +10,31 @@ export class DateDropdownComponent {
 
   protected options: string[] = [];
 
-  public selectedOption = input<string | null>(Utility.getDefaultDate());
+  public selectedOption = model<string | null>(Utility.getDefaultDate());
 
-  @Output() protected selectedOptionChange = new EventEmitter<string | null>();
+  protected canGoToPreviousOption = computed(() => {
+    const selectedOption = this.selectedOption();
+
+    if (!selectedOption) {
+      return false;
+    }
+
+    console.log(this.options.indexOf(selectedOption))
+
+    return this.options.indexOf(selectedOption) > 0;
+  });
+
+  protected canGoToNextOption = computed(() => {
+    const selectedOption = this.selectedOption();
+
+    if (!selectedOption) {
+      return false;
+    }
+
+    console.log(this.options.indexOf(selectedOption))
+
+    return this.options.indexOf(selectedOption) < this.options.length - 1;
+  });
 
   constructor() {
     this.buildOptions();
@@ -47,8 +67,6 @@ export class DateDropdownComponent {
     }
   }
 
-
-
   protected formatOption(option: string) {
     const date = new Date(option);
 
@@ -59,6 +77,38 @@ export class DateDropdownComponent {
       return `${date.toLocaleDateString()} (Today)`;
     } else {
       return date.toLocaleDateString();
+    }
+  }
+
+  protected selectPreviousOption() {
+    const selectedOption = this.selectedOption();
+
+    if (!selectedOption) {
+      console.warn("No selected option");
+
+      return;
+    }
+
+    const index = this.options.indexOf(selectedOption);
+
+    if (index > 0) {
+      this.selectedOption.set(this.options[index - 1]);
+    }
+  }
+
+  protected selectNextOption() {
+    const selectedOption = this.selectedOption();
+
+    if (!selectedOption) {
+      console.warn("No selected option");
+
+      return;
+    }
+
+    const index = this.options.indexOf(selectedOption);
+
+    if (index < this.options.length - 1) {
+      this.selectedOption.set(this.options[index + 1]);
     }
   }
 }

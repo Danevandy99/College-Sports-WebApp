@@ -43,7 +43,8 @@
       </div>
     </div>
     <div
-      class="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-2 p-2 container mx-auto mb-14 lg:mb-2"
+      id="game-card-grid"
+      class="grid gap-2 p-2 container mx-auto mb-14 lg:mb-2"
       [ngClass]="{
         'opacity-50': scoreboardResult().isFetching && scoreboardResult().data
       }"

@@ -109,4 +109,25 @@
     </div>
     }
   </div>
+
+  <div class="flex gap-2 mt-2">
+    <div *ngIf="gameConferenceLogo$ | async as logo" class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <img [src]="logo" />
+    </div>
+
+    @if (gameNotes() && gameNotes().length > 0) { @for (note of gameNotes() |
+    orderBy:'id'; track note.id) {
+    <div [title]="note.headline" data-toggle="tooltip" class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <h1 class="text-[0.6rem] font-semibold text-gray-500 truncate">
+        {{ note.headline }}
+      </h1>
+    </div>
+    } } @if (gameLocation()) {
+    <div [title]="gameLocation()" data-toggle="tooltip" class="ml-auto px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <h1 class="text-[0.6rem] font-semibold text-gray-500 truncate">
+        📍 {{ gameLocation() }}
+      </h1>
+    </div>
+    }
+  </div>
 </div>

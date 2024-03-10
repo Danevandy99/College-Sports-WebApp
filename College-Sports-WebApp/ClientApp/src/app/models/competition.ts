@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+import { GroupByOptionsWithElement } from 'rxjs';
 import { Airing } from './airing';
 import { Broadcast } from './broadcast';
 import { Competitor } from './competitor';
@@ -36,4 +37,5 @@ export interface Competition {
   type?: Type;
   uid?: string | null;
   venue?: Venue;
+  groups: { id: string, name: string, shortName: string }[];
 }

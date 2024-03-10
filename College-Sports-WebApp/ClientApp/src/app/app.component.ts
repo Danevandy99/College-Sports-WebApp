@@ -11,6 +11,7 @@ import { ScoreboardResult } from './models/scoreboard-result';
 
 @Component({
   selector: 'app-root',
+  styleUrl: './app.component.css',
   templateUrl: './app.component.html'
 })
 export class AppComponent {

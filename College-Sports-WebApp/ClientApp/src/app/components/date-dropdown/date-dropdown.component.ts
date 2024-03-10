@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, computed, model } from '@angular/core';
 import { Utility } from 'src/utility';
 
@@ -36,7 +37,7 @@ export class DateDropdownComponent {
     return this.options.indexOf(selectedOption) < this.options.length - 1;
   });
 
-  constructor() {
+  constructor(private datePipe: DatePipe) {
     this.buildOptions();
   }
 
@@ -73,10 +74,12 @@ export class DateDropdownComponent {
     // Check if the date is today
     const today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
+    const dateFormat = 'EEE, MMM d';
+
     if (date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && date.getDate() === today.getDate()) {
-      return `${date.toLocaleDateString()} (Today)`;
+      return `${this.datePipe.transform(date, dateFormat)} (Today)`;
     } else {
-      return date.toLocaleDateString();
+      return this.datePipe.transform(date, dateFormat);
     }
   }
 

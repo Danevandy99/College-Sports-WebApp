@@ -1,7 +1,10 @@
+import { toObservable } from '@angular/core/rxjs-interop';
+import { BasketballConferencesService } from 'src/app/services/basketball-conferences.service';
 import { Utility } from './../../../utility';
 import { Component, computed, input } from '@angular/core';
 import { Competitor } from '../../models/competitor';
 import { Event } from '../../models/event';
+import { of, startWith, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-game-card',
@@ -19,7 +22,7 @@ export class GameCardComponent {
     const game = this.game();
 
     if (!game || !game.competitions || game.competitions.length === 0) {
-      return [{ id: 0}, { id: 1 }];
+      return [{ id: 0 }, { id: 1 }];
     } else {
       return game.competitions[0].competitors ?? [];
     }
@@ -87,4 +90,53 @@ export class GameCardComponent {
 
     return winner.team?.id === competitor.team?.id;
   }
+
+  protected gameNotes = computed(() => {
+    const game = this.game();
+
+    if (!game) {
+      return [];
+    }
+
+    return game.competitions?.at(0)?.notes ?? [];
+  });
+
+  protected gameLocation = computed(() => {
+    const game = this.game();
+
+    if (!game) {
+      return '';
+    }
+
+    const venueName = game.competitions?.at(0)?.venue?.fullName;
+    const venueAddress = game.competitions?.at(0)?.venue?.address;
+    const cityState = venueAddress ? `${venueAddress.city}, ${venueAddress.state}` : '';
+
+    return `${venueName} (${cityState})`;
+  });
+
+  protected gameConferenceLogo$ = toObservable(this.game)
+    .pipe(
+      tap(console.log),
+      switchMap(game => {
+
+        if (!game || !game.competitions || game.competitions.length === 0 || !game.competitions[0].groups || game.competitions[0].groups.length === 0) {
+          return '';
+        }
+
+        console.log(game)
+
+        // const conferenceId = game.competitions[0].groups[0].id;
+
+        // if (!conferenceId) {
+        //   return '';
+        // }
+
+        // return this.basketballConferencesService.getConferenceLogo(conferenceId);
+
+        return of("");
+      })
+    );
+
+  constructor(private basketballConferencesService: BasketballConferencesService) { }
 }

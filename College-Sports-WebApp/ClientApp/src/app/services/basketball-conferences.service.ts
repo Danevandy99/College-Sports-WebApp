@@ -20,4 +20,10 @@ export class BasketballConferencesService {
       map(conferences => conferences?.find(conference => conference.uid === conferenceId)?.name ?? conferenceId)
     );
   }
+
+  public getConferenceLogo(groupId: string): Observable<string | null> {
+    return this.conferences$.pipe(
+      map(conferences => conferences?.find(conference => conference.uid === groupId)?.logo ?? null)
+    );
+  }
 }

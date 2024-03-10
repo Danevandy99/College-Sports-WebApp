@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { TimeOrTimeLeftSectionComponent } from './components/time-or-time-left-section/time-or-time-left-section.component';
 import { TeamRecordSectionComponent } from './components/team-record-section/team-record-section.component';
 import { WatchButtonComponent } from './components/watch-button/watch-button.component';
-import { NgOptimizedImage } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { GameCardComponent } from './components/game-card/game-card.component';
 import { BasketballConferencesDropdownComponent } from './components/basketball-conferences-dropdown/basketball-conferences-dropdown.component';
 import { DateDropdownComponent } from './components/date-dropdown/date-dropdown.component';
@@ -45,6 +45,7 @@ const routes: Routes = [
                 },
             },
         }),
+        DatePipe,
     ],
     bootstrap: [AppComponent],
     imports: [

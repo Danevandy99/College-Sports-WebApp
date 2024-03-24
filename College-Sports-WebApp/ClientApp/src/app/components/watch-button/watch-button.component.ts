@@ -51,7 +51,7 @@ export class WatchButtonComponent {
     const channelName = this.channelName();
 
     if (!game || !channelName) {
-      return ';'
+      return ''
     }
 
     switch (channelName) {
@@ -90,8 +90,14 @@ export class WatchButtonComponent {
         return "https://www.foxsports.com/live/btn";
       case "CW NETWORK":
         return "https://www.cwtv.com/";
+      case "truTV":
+        return "https://www.trutv.com/watchtrutv";
+      case "TNT":
+        return "https://www.tntdrama.com/watchtnt";
+      case "TBS":
+        return "https://www.tbs.com/watchtbs";
       default:
-        return 'https://www.espn.com/watch/';
+        return `https://www.google.com/search?q=watch+${channelName}`;
     }
   });
 
@@ -126,9 +132,13 @@ export class WatchButtonComponent {
       case "LHN":
         return "bg-[#bf5700] text-white hover:text-white";
       case "ABC":
+      case "TNT":
+      case "TBS":
         return "bg-[#000] text-[#fff] dark:bg-[#fff] dark:text-[#000] dark:hover:text-[#000] dark:hover:bg-[#fff] hover:text-[#fff] hover:bg-[#000]";
       case "CW NETWORK":
         return "bg-[#ff4500] text-[#fff] hover:text-[#fff] dark:bg-[#de3d01] dark:text-[#000] dark:hover:text-[#000]";
+      case "truTV":
+        return "bg-[#baeb21] text-[#000] hover:text-[#000]"
       default:
         return "bg-purple-500 text-white";
     }

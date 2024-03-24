@@ -61,11 +61,17 @@ export class BasketballConferencesDropdownComponent {
       conferences: allConferences.filter(conference => !p5Conferences.includes(conference) && !overallConferences.includes(conference)),
     }
 
-    return [
-      overallConferencesGroup,
-      p5ConferencesGroup,
-      otherGroup
-    ]
+    const result = [overallConferencesGroup];
+
+    if (p5Conferences.length > 0) {
+      result.push(p5ConferencesGroup);
+    }
+
+    if (otherGroup.conferences.length > 0) {
+      result.push(otherGroup);
+    }
+
+    return result;
   });
 
   constructor(private basketballConferencesService: BasketballConferencesService) { }

@@ -1,5 +1,6 @@
 #game-card-grid {
   grid-template-columns: minmax(0, 1fr);
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom)) !important;
 }
 
 

@@ -232,4 +232,5 @@ _Pvt_Extensions
 
 College-Sports-WebApp/appsettings.Development.json
 
-College-Sports-WebApp/ClientApp/.angular/
+.angular/
+.DS_Store

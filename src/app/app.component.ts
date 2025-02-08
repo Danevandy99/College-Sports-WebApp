@@ -69,6 +69,8 @@ export class AppComponent {
 
     return [...liveGames, ...scheduledGames, ...finishedGames]
   });
+  
+  protected adOccurence = computed(() => Math.min(8, this.games().length));
 
   constructor(
     private espnApiService: EspnApiService,
@@ -87,7 +89,6 @@ export class AppComponent {
     ])
       .pipe(takeUntilDestroyed())
       .subscribe(() => {
-        console.log("scrolling to top")
         window.scrollTo(0, 0);
       });
   }

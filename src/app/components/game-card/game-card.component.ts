@@ -117,22 +117,11 @@ export class GameCardComponent {
 
   protected gameConferenceLogo$ = toObservable(this.game)
     .pipe(
-      tap(console.log),
       switchMap(game => {
 
         if (!game || !game.competitions || game.competitions.length === 0 || !game.competitions[0].groups || game.competitions[0].groups.length === 0) {
           return '';
         }
-
-        console.log(game)
-
-        // const conferenceId = game.competitions[0].groups[0].id;
-
-        // if (!conferenceId) {
-        //   return '';
-        // }
-
-        // return this.basketballConferencesService.getConferenceLogo(conferenceId);
 
         return of("");
       })

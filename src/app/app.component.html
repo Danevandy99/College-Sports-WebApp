@@ -56,8 +56,19 @@
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
       <app-game-card></app-game-card>
-      } @else { @for (game of games(); track game.id) {
+      } @else { @for (game of games(); track game.id; let index = $index) {
       <app-game-card [game]="game"></app-game-card>
+
+      @if (index % adOccurence() == 0 && index > 0) {
+        <div class="game-card dark:bg-gray-900 bg-[#fff] rounded-lg p-2">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3532771805118458" crossorigin="anonymous"></script>
+          <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-3532771805118458"
+            data-ad-slot="9977725117"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      }
       } @if (games().length === 0) {
       <div
         class="col-span-full py-10 text-center rounded-lg bg-[#fff] dark:bg-gray-900"

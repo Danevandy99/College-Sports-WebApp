@@ -20,8 +20,6 @@ export class DateDropdownComponent {
       return false;
     }
 
-    console.log(this.options.indexOf(selectedOption))
-
     return this.options.indexOf(selectedOption) > 0;
   });
 
@@ -31,8 +29,6 @@ export class DateDropdownComponent {
     if (!selectedOption) {
       return false;
     }
-
-    console.log(this.options.indexOf(selectedOption))
 
     return this.options.indexOf(selectedOption) < this.options.length - 1;
   });

@@ -1,8 +1,14 @@
 import { Component, Input, OnInit, computed, input, signal } from '@angular/core';
 import { Event } from '../../models/event';
 import { Utility } from 'src/utility';
+import { DatePipe, NgStyle } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [
+    DatePipe,
+    NgStyle,
+  ],
   selector: 'app-time-or-time-left-section',
   templateUrl: './time-or-time-left-section.component.html',
   styleUrls: ['./time-or-time-left-section.component.css']

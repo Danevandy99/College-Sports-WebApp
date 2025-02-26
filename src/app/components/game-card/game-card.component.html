@@ -1,4 +1,4 @@
-<div class="game-card dark:bg-gray-900 bg-[#fff] rounded-lg p-2">
+<div class="game-card dark:bg-gray-900 bg-[#fff] rounded-lg p-2 cursor-pointer hover:opacity-70" [routerLink]="['/game', game()?.id]">
   <div class="flex flex-row mb-4">
     <app-time-or-time-left-section
       [game]="game()"

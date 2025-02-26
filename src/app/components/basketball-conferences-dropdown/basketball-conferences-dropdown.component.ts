@@ -1,10 +1,15 @@
 import { Component, EventEmitter, Input, Output, Signal, computed, input, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { Conference } from 'src/app/models/conference';
 import { BasketballConferencesService } from 'src/app/services/basketball-conferences.service';
 import { Utility } from 'src/utility';
 
 @Component({
+  standalone: true,
+  imports: [
+    FormsModule,
+  ],
   selector: 'app-basketball-conferences-dropdown',
   templateUrl: './basketball-conferences-dropdown.component.html',
   styleUrl: './basketball-conferences-dropdown.component.css'

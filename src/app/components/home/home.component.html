@@ -1,0 +1,102 @@
+<div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
+    <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
+      <div
+        class="w-full sticky top-0 bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pt-[env(safe-area-inset-top)]"
+      >
+        <div class="container flex gap-x-2 items-center py-2">
+          <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
+  
+          <app-date-dropdown
+            class="hidden lg:block"
+            [selectedOption]="dateString()"
+            (selectedOptionChange)="setDate($event)"
+          />
+  
+          <p class="mb-0 inline-flex dark:text-gray-600 text-gray-400 text-sm">
+            @if (scoreboardResult().isFetching && scoreboardResult().data) {
+            <span>Updating...</span>
+            } @else if (scoreboardResult().data) {
+            <span
+              >Updated on
+              {{
+                scoreboardResult().dataUpdatedAt | date : "MMMM d 'at' h:mm a"
+              }}</span
+            >
+            }
+          </p>
+  
+          <!-- Spacer -->
+          <div class="flex-1"></div>
+  
+          <app-basketball-conferences-dropdown
+            class="hidden lg:block"
+            [selectedConference]="selectedConference()"
+            (selectedConferenceChange)="selectedConference.set($event)"
+          />
+  
+          <button
+            (click)="darkModeService.toggleDarkMode()"
+            class="bg-gray-100 dark:bg-gray-800 dark:text-white text-xs rounded-lg py-1.5 px-3 h-9"
+          >
+            {{ (darkModeService.isDarkMode$ | async) ? "☀" : "☾" }}
+          </button>
+        </div>
+      </div>
+      <div
+        id="game-card-grid"
+        class="grid gap-2 p-2 container mx-auto mb-14 lg:mb-2"
+        [ngClass]="{
+          'opacity-50': scoreboardResult().isFetching && scoreboardResult().data
+        }"
+      >
+        @if (!scoreboardResult().data && scoreboardResult().isLoading) {
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        <app-game-card></app-game-card>
+        } @else { @for (game of games(); track game.id; let index = $index) {
+        <app-game-card [game]="game"></app-game-card>
+  
+        @if (index % adOccurence() == 0 && index > 0) {
+          <div class="game-card dark:bg-gray-900 bg-[#fff] rounded-lg p-2">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3532771805118458" crossorigin="anonymous"></script>
+            <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-3532771805118458"
+              data-ad-slot="9977725117"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        }
+        } @if (games().length === 0) {
+        <div
+          class="col-span-full py-10 text-center rounded-lg bg-[#fff] dark:bg-gray-900"
+        >
+          <p class="text-gray-500 dark:text-gray-400 text-lg">
+            No games in {{ selectedConferenceName$ | async }}
+          </p>
+        </div>
+        } }
+      </div>
+    </div>
+  
+    <!-- Fixed mobile footer -->
+    <div
+      class="lg:hidden w-full fixed bottom-0 flex flex-row items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pb-[env(safe-area-inset-bottom)]"
+    >
+      <div class="container flex gap-x-2 items-center py-2">
+        <app-date-dropdown
+          [selectedOption]="dateString()"
+          (selectedOptionChange)="setDate($event)"
+        />
+  
+        <app-basketball-conferences-dropdown
+          class="ml-auto"
+          [selectedConference]="selectedConference()"
+          (selectedConferenceChange)="selectedConference.set($event)"
+        />
+      </div>
+    </div>
+  </div>
+  

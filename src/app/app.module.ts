@@ -16,18 +16,17 @@ import { DateDropdownComponent } from './components/date-dropdown/date-dropdown.
 import { provideQueryClientOptions } from '@ngneat/query';
 import { OrderByPipe } from "./pipes/order-by.pipe";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { GameDetailComponent } from './components/game-details/game-details.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'game/:id', component: GameDetailComponent },
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
-        TimeOrTimeLeftSectionComponent,
-        GameCardComponent,
-        BasketballConferencesDropdownComponent,
-        DateDropdownComponent
     ],
     providers: [
         { provide: APP_ID, useValue: 'ng-cli-universal' },
@@ -57,6 +56,11 @@ const routes: Routes = [
         WatchButtonComponent,
         NgOptimizedImage,
         OrderByPipe,
+        GameDetailComponent,
+        GameCardComponent,
+        BasketballConferencesDropdownComponent,
+        DateDropdownComponent,
+        TimeOrTimeLeftSectionComponent,
         ServiceWorkerModule.register('ngsw-worker.js', {
           enabled: !isDevMode(),
           // Register the ServiceWorker as soon as the application is stable

@@ -1,9 +1,15 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, computed, model } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Utility } from 'src/utility';
 
 @Component({
   selector: 'app-date-dropdown',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './date-dropdown.component.html',
   styleUrl: './date-dropdown.component.css'
 })

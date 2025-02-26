@@ -5,6 +5,12 @@ import { Component, computed, input } from '@angular/core';
 import { Competitor } from '../../models/competitor';
 import { Event } from '../../models/event';
 import { of, startWith, switchMap, tap } from 'rxjs';
+import { WatchButtonComponent } from '../watch-button/watch-button.component';
+import { TimeOrTimeLeftSectionComponent } from '../time-or-time-left-section/time-or-time-left-section.component';
+import { AsyncPipe, NgClass, NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
+import { OrderByPipe } from 'src/app/pipes/order-by.pipe';
+import { TeamRecordSectionComponent } from '../team-record-section/team-record-section.component';
+import { RouterLink } from '@angular/router';
 
 interface GameTag {
   label: string;
@@ -12,6 +18,19 @@ interface GameTag {
 }
 
 @Component({
+  standalone: true,
+  imports: [
+    WatchButtonComponent,
+    TimeOrTimeLeftSectionComponent,
+    NgClass,
+    OrderByPipe,
+    NgOptimizedImage,
+    NgStyle,
+    TeamRecordSectionComponent,
+    RouterLink,
+    NgIf,
+    AsyncPipe,
+  ],
   selector: 'app-game-card',
   templateUrl: './game-card.component.html',
   styleUrl: './game-card.component.css'

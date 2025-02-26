@@ -6,6 +6,11 @@ import { Competitor } from '../../models/competitor';
 import { Event } from '../../models/event';
 import { of, startWith, switchMap, tap } from 'rxjs';
 
+interface GameTag {
+  label: string;
+  class: string;
+}
+
 @Component({
   selector: 'app-game-card',
   templateUrl: './game-card.component.html',
@@ -126,6 +131,69 @@ export class GameCardComponent {
         return of("");
       })
     );
+
+  protected gameTags = computed(() => {
+    const game = this.game();
+
+    if (!game) {
+      return [];
+    }
+
+    const tags: GameTag[] = [];
+
+    // Is an upset alert?
+    if (game.competitions?.[0]?.competitors?.length === 2 && !game.status?.type?.completed) {
+      const [compA, compB] = game.competitions[0].competitors;
+      const scoreA = +(compA.score ?? "0");
+      const scoreB = +(compB.score ?? "0");
+
+      if (scoreA !== 0 && scoreB !== 0) {
+        // Determine winner and loser
+        const winner = scoreA > scoreB ? compA : compB;
+        const loser = winner === compA ? compB : compA;
+
+        // Assume each team has a "ranking" property where a lower number is higher seeded.
+        const winnerRank = Number(winner.curatedRank?.current);
+        const loserRank = Number(loser.curatedRank?.current);
+
+        // Check if both rankings are available and if the winner was lower seeded.
+        if (!isNaN(winnerRank) && !isNaN(loserRank) && winnerRank > loserRank) {
+          tags.push({
+            label: `🚨 Upset Alert`,
+            class: 'text-white bg-red-800'
+          });
+        }
+      }
+    }
+
+    // Is a completed upset?
+    if (game.status?.type?.completed && game.competitions?.[0]?.competitors) {
+      const [compA, compB] = game.competitions[0].competitors;
+      const scoreA = +(compA.score ?? "0");
+      const scoreB = +(compB.score ?? "0");
+
+      if (scoreA !== 0 && scoreB !== 0) {
+
+        // Determine winner and loser
+        const winner = scoreA > scoreB ? compA : compB;
+        const loser = winner === compA ? compB : compA;
+
+        // Assume each team has a "ranking" property where a lower number is higher seeded.
+        const winnerRank = Number(winner.curatedRank?.current);
+        const loserRank = Number(loser.curatedRank?.current);
+
+        // Check if both rankings are available and if the winner was lower seeded.
+        if (!isNaN(winnerRank) && !isNaN(loserRank) && winnerRank > loserRank) {
+          tags.push({
+            label: `🪣 Upset`,
+            class: 'text-white bg-red-800'
+          });
+        }
+      }
+    }
+
+    return tags;
+  });
 
   constructor(private basketballConferencesService: BasketballConferencesService) { }
 }

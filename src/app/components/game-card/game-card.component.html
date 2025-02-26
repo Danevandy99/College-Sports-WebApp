@@ -9,7 +9,14 @@
 
   <div class="grid grid-flow-col grid-rows-5 gap-y-1">
     <!-- This just forces the two teams to line up with their score lines -->
-    <div class="flex col-start-1 min-h-[16px]"></div>
+    <div class="flex col-start-1 min-h-[16px] gap-2">
+      @for (tag of gameTags(); track tag.label) {
+      <div
+        class="px-1.5 py-0.5 rounded-full text-[0.5rem] font-semibold" [ngClass]="tag.class">
+        {{ tag.label }}
+      </div>
+      }
+    </div>
     @for (competitor of competitors() | orderBy:'id'; track competitor.id; let
     competitorIndex = $index) {
     <div

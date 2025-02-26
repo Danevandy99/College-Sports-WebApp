@@ -116,9 +116,11 @@ export class WatchButtonComponent {
       case "FOX":
       case "FS1":
       case "FS2":
+        return "bg-blue-900 text-white";
+      case "ACC Network":
       case "ACCN":
       case "ACCNX":
-        return "bg-blue-900 text-white";
+        return "bg-[#013ca6] text-[#fff] hover:text-[#fff] hover:bg-[#013ca6]";
       case "BTN":
         return "bg-sky-600 text-white";
       case "CBS":
@@ -126,6 +128,7 @@ export class WatchButtonComponent {
         return "bg-blue-700 text-white";
       case "SECN":
       case "SECN+":
+      case "SEC Network":
         return "bg-[#004b8d] text-[#ffd046] hover:text-[#ffd046]";
       case "PAC12":
         return "bg-[#004b91] text-[#fff] hover:text-[#fff]";
@@ -139,6 +142,12 @@ export class WatchButtonComponent {
         return "bg-[#ff4500] text-[#fff] hover:text-[#fff] dark:bg-[#de3d01] dark:text-[#000] dark:hover:text-[#000]";
       case "truTV":
         return "bg-[#baeb21] text-[#000] hover:text-[#000]"
+      case "Peacock":
+        return "bg-black text-white";
+      case "Altitude Sports":
+        return "bg-[#002d62] text-[#fff] hover:text-[#fff]";
+      case "MWN":
+        return "bg-[#4F2D7F] text-white";
       default:
         return "bg-purple-500 text-white";
     }

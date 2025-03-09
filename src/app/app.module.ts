@@ -21,7 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'game/:id', component: GameDetailComponent },
+    { path: 'game/:eventId', component: GameDetailComponent },
 ];
 
 @NgModule({
@@ -51,7 +51,7 @@ const routes: Routes = [
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, { bindToComponentInputs: true, }),
         TeamRecordSectionComponent,
         WatchButtonComponent,
         NgOptimizedImage,
@@ -62,10 +62,10 @@ const routes: Routes = [
         DateDropdownComponent,
         TimeOrTimeLeftSectionComponent,
         ServiceWorkerModule.register('ngsw-worker.js', {
-          enabled: !isDevMode(),
-          // Register the ServiceWorker as soon as the application is stable
-          // or after 30 seconds (whichever comes first).
-          registrationStrategy: 'registerWhenStable:30000'
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
         })
     ]
 })

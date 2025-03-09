@@ -5,6 +5,7 @@ import { ScoreboardResult } from "../models/scoreboard-result";
 import { ConferencesResult } from "../models/conferences-result";
 import { QueryObserverResult, injectQuery, injectQueryClient, queryOptions } from "@ngneat/query";
 import { Result } from "@ngneat/query/lib/types";
+import { EventSummary } from "../models/event-summary";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,17 @@ export class EspnApiService {
     const url = "https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard/conferences?groups=50";
 
     return this.httpClient.get<ConferencesResult>(url);
+  }
+
+  public getSummary(eventId: number): Result<QueryObserverResult<EventSummary, Error>> {
+    const url = `https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?region=us&lang=en&contentorigin=espn&event=${eventId}`;
+
+    return this.query({
+      queryKey: ['summary', eventId],
+      queryFn: () => {
+        return this.httpClient.get<EventSummary>(url);
+      },
+      staleTime: 10000, // 10 seconds,
+    });
   }
 }

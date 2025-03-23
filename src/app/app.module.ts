@@ -51,7 +51,7 @@ const routes: Routes = [
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        RouterModule.forRoot(routes, { bindToComponentInputs: true, }),
+        RouterModule.forRoot(routes, { bindToComponentInputs: true, enableViewTransitions: true }),
         TeamRecordSectionComponent,
         WatchButtonComponent,
         NgOptimizedImage,

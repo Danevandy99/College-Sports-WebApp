@@ -11,6 +11,7 @@ export interface Team {
   isActive?: boolean;
   location?: string | null;
   logo?: string | null;
+  logos?: Array<{ href: string }> | null;
   name?: string | null;
   shortDisplayName?: string | null;
   uid?: string | null;

@@ -1,0 +1,51 @@
+<div [ngClass]="{ dark: (darkModeService.isDarkMode$ | async) }">
+    <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950">
+        <div
+            class="w-full sticky top-0 bottom-0 flex flex-col items-center bg-[#fff] dark:bg-gray-900 border-b-[1px] border-b-gray-100 dark:border-b-gray-950 z-50 pt-[env(safe-area-inset-top)]">
+            <div class="container flex gap-x-2 items-center py-2">
+                <img priority src="assets/favicon.ico" class="h-8 w-8 rounded" />
+
+                <button routerLink="/"
+                    class="text-xs py-1.5 pl-3 px-3 flex gap-2 items-center rounded-lg h-9 bg-gray-100 cursor-pointer border-r-8 border-r-transparent text-gray-900 focus:ring-gray-500 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-[#fff] dark:focus:ring-gray-500">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        [style.view-transition-name]="'arrow-left'">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Games
+                </button>
+            </div>
+
+            <div class="flex flex-row">
+                @if (awayTeam(); as awayTeam) {
+                <div class="flex flex-row items-center p-2 dark:text-white">
+                    <div class="text-center mt-2">
+                        <h2 class="font-bold text-xl">{{ awayTeam.team?.name }}</h2>
+                    </div>
+
+                    <div *ngIf="awayTeam.team && awayTeam.team.logos" class="h-16 w-16">
+                        <img [src]="awayTeam.team.logos[0].href" [alt]="awayTeam.team.name" class="w-full h-full object-contain"
+                            [style.view-transition-name]="'team-logo-' + awayTeam.id" />
+                    </div>
+
+                    <p class="text-4xl font-bold">{{ awayScore() }}</p>
+                </div>
+                }
+
+                @if(homeTeam(); as homeTeam) {
+                <div class="flex flex-row-reverse items-center p-2 dark:text-white">
+                    <div class="text-center mt-2">
+                        <h2 class="font-bold text-xl">{{ homeTeam.team?.name }}</h2>
+                    </div>
+
+                    <div *ngIf="homeTeam.team && homeTeam.team.logos" class="h-16 w-16">
+                        <img [src]="homeTeam.team.logos[0].href" [alt]="homeTeam.team.name" class="w-full h-full object-contain"
+                            [style.view-transition-name]="'team-logo-' + homeTeam.id" />
+                    </div>
+
+                    <p class="text-4xl font-bold">{{ homeScore() }}</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
